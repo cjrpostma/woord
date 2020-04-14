@@ -1,5 +1,5 @@
 // current word ------------------------------
-export const FETCH_WORD_SUCCESS = 'FETCH_WORD_SUCCESS';
+export const FETCH_CURRENT_WORD_SUCCESS = 'FETCH_CURRENT_WORD_SUCCESS';
 
 // user word ------------------------------
 export const ADD_USER_WORD = 'ADD_USER_WORD';

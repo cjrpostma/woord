@@ -1,9 +1,9 @@
 import * as actionTypes from '../actionTypes';
 
 // current word ------------------------------
-export const fetchWordSuccess = word => ({
-  type: actionTypes.FETCH_WORD_SUCCESS,
-  word,
+export const fetchCurrentWordSuccess = currentWord => ({
+  type: actionTypes.FETCH_CURRENT_WORD_SUCCESS,
+  currentWord,
 });
 
 // user word ------------------------------
@@ -12,11 +12,11 @@ export const addUserWord = word => ({
   word,
 });
 
-export const addUserWordAttempt = (wordId, date, definition) => ({
+export const addUserWordAttempt = (wordId, date, userDefinition) => ({
   type: actionTypes.ADD_USER_WORD_ATTEMPT,
   wordId,
   date,
-  definition,
+  userDefinition,
 });
 
 export const deleteUserWord = wordId => ({
