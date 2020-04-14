@@ -1,0 +1,14 @@
+// word
+export const ADD_USER_WORD = 'ADD_USER_WORD';
+export const ADD_USER_WORD_ATTEMPT = 'ADD_USER_WORD_ATTEMPT';
+export const DELETE_USER_WORD = 'DELETE_USER_WORD';
+export const FETCH_WORD_SUCCESS = 'FETCH_WORD_SUCCESS';
+export const SET_USER_WORD_DIFFICULTY = 'SET_USER_WORD_DIFFICULTY';
+
+// random word
+export const FETCH_RANDOM_WORD_SUCCESS = 'FETCH_RANDOM_WORD_SUCCESS';
+export const SET_RANDOM_WORD = 'SET_RANDOM_WORD';
+
+// loading, error
+export const SET_ERROR = 'SET_ERROR';
+export const SET_ISLOADING = 'SET_ISLOADING';
