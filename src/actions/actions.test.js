@@ -31,8 +31,8 @@ test('it should return an action with type ADD_USER_WORD_ATTEMPT and payload of 
   const expectedAction = {
     type: actionTypes.ADD_USER_WORD_ATTEMPT,
     wordId: 1,
-    date: dateNowStub,
-    userDefinition: 'A made up definition',
+    attemptedOn: dateNowStub,
+    attemptedDefinition: 'A made up definition',
   };
   const result = actions.addUserWordAttempt(
     1,

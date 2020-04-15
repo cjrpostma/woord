@@ -11,8 +11,8 @@ export default (state = [], action) => {
           word.userDefinitionAttempts = [
             ...word.userDefinitionAttempts,
             {
-              date: action.date,
-              definition: action.userDefinition,
+              attemptedOn: action.attemptedOn,
+              attemptedDefinition: action.attemptedDefinition,
             },
           ];
         }
