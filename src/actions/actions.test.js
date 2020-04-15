@@ -85,7 +85,7 @@ test('it should return an action with type FETCH_RANDOM_WORD_SUCCESS and payload
     type: actionTypes.FETCH_RANDOM_WORD_SUCCESS,
     randomWord: 'test',
   };
-  const result = actions.fetchRandomWord('test');
+  const result = actions.fetchRandomWordSuccess('test');
   expect(result).toEqual(expectedAction);
 });
 

@@ -43,7 +43,7 @@ export const setUserWordDifficulty = (wordId, difficulty) => ({
 });
 
 // random word ------------------------------
-export const fetchRandomWord = randomWord => ({
+export const fetchRandomWordSuccess = randomWord => ({
   type: actionTypes.FETCH_RANDOM_WORD_SUCCESS,
   randomWord,
 });

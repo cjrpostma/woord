@@ -4,8 +4,8 @@ import getCurrentWord from '../api/getCurrentWord';
 export const requestCurrentWord = query => async dispatch => {
   try {
     dispatch(setIsLoading(true));
-    const word = await getCurrentWord(query);
-    dispatch(fetchCurrentWordSuccess(word));
+    const currentWord = await getCurrentWord(query);
+    dispatch(fetchCurrentWordSuccess(currentWord));
     dispatch(setIsLoading(false));
     dispatch(setError(null));
   } catch (error) {
