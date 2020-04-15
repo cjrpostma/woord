@@ -7,7 +7,13 @@ const fakeWord = {
   otherProperty: 'fake',
 };
 
-const dateNowStub = jest.fn(() => 1530000000000);
+const realDateNow = Date.now.bind(global.Date);
+const dateNowStub = jest.fn(() => 1530518207007);
+global.Date.now = dateNowStub;
+
+afterEach(() => {
+  global.Date.now = realDateNow;
+});
 
 test('it should return an action with type FETCH_CURRENT_WORD_SUCCESS and payload of currentWord', () => {
   const expectedAction = {
@@ -21,9 +27,22 @@ test('it should return an action with type FETCH_CURRENT_WORD_SUCCESS and payloa
 test('it should return an action with type ADD_USER_WORD and payload of word', () => {
   const expectedAction = {
     type: actionTypes.ADD_USER_WORD,
-    word: fakeWord,
+    userWord: {
+      id: 'abc',
+      word: 'test',
+      addedOn: Date.now(),
+      userDefinitionAttempts: [],
+      definition: 'test definition',
+      partOfSpeech: 'noun',
+      difficulty: 10,
+    },
   };
-  const result = actions.addUserWord(fakeWord);
+  const result = actions.addUserWord({
+    id: 'abc',
+    word: 'test',
+    text: 'test definition',
+    partOfSpeech: 'noun',
+  });
   expect(result).toEqual(expectedAction);
 });
 
@@ -31,12 +50,12 @@ test('it should return an action with type ADD_USER_WORD_ATTEMPT and payload of 
   const expectedAction = {
     type: actionTypes.ADD_USER_WORD_ATTEMPT,
     wordId: 1,
-    attemptedOn: dateNowStub,
+    attemptedOn: Date.now(),
     attemptedDefinition: 'A made up definition',
   };
   const result = actions.addUserWordAttempt(
     1,
-    dateNowStub,
+    Date.now(),
     'A made up definition'
   );
   expect(result).toEqual(expectedAction);
