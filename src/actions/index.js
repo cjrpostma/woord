@@ -56,6 +56,6 @@ export const setError = error => ({
 
 // loading ------------------------------
 export const setIsLoading = loadingStatus => ({
-  type: actionTypes.SET_ISLOADING,
+  type: actionTypes.SET_IS_LOADING,
   loadingStatus,
 });
