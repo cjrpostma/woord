@@ -134,8 +134,114 @@ test('it should return state with new userDefinitionAttempts', () => {
   expect(result).toEqual(expected);
 });
 
-test('it should return state with another new userDefinitionAttempts', () => {});
+test('it should return state with another new userDefinitionAttempts', () => {
+  const expected = [
+    {
+      id: '123',
+      word: '123',
+      addedOn: dateNowStub,
+      userDefinitionAttempts: [
+        {
+          attemptedOn: dateNowStub,
+          attemptedDefinition: 'user definition',
+        },
+        {
+          attemptedOn: dateNowStub,
+          attemptedDefinition: 'other user definition',
+        },
+      ],
+      definition: 'dictionary definition',
+      partOfSpeech: 'noun',
+      difficulty: 1,
+    },
+  ];
+  const result = userWordReducer(
+    [
+      {
+        id: '123',
+        word: '123',
+        addedOn: dateNowStub,
+        userDefinitionAttempts: [
+          {
+            attemptedOn: dateNowStub,
+            attemptedDefinition: 'user definition',
+          },
+        ],
+        definition: 'dictionary definition',
+        partOfSpeech: 'noun',
+        difficulty: 1,
+      },
+    ],
+    {
+      type: actionTypes.ADD_USER_WORD_ATTEMPT,
+      wordId: '123',
+      attemptedOn: dateNowStub,
+      attemptedDefinition: 'other user definition',
+    }
+  );
+  expect(result).toEqual(expected);
+});
 
-test('it should return state with a word deleted', () => {});
+test('it should return state with a word deleted', () => {
+  const expected = [
+    {
+      id: 'abcdefg',
+      word: 'test1',
+      addedOn: dateNowStub,
+      userDefinitionAttempts: [
+        {
+          attemptedOnDate: dateNowStub,
+          attemptedDefinition: 'user definition',
+        },
+      ],
+      definition: 'dictionary definition',
+      partOfSpeech: 'noun',
+      difficulty: 7,
+    },
+  ];
+  const result = userWordReducer(setFakeInitialState(), {
+    type: actionTypes.DELETE_USER_WORD,
+    wordId: 'hijklm',
+  });
 
-test('it should return state with a new word difficulty', () => {});
+  expect(result).toEqual(expected);
+});
+
+test('it should return state with a new word difficulty', () => {
+  const expected = [
+    {
+      id: 'abcdefg',
+      word: 'test1',
+      addedOn: dateNowStub,
+      userDefinitionAttempts: [
+        {
+          attemptedOnDate: dateNowStub,
+          attemptedDefinition: 'user definition',
+        },
+      ],
+      definition: 'dictionary definition',
+      partOfSpeech: 'noun',
+      difficulty: 10,
+    },
+    {
+      id: 'hijklm',
+      word: 'test2',
+      addedOn: dateNowStub,
+      userDefinitionAttempts: [
+        {
+          attemptedOnDate: dateNowStub,
+          attemptedDefinition: 'user definition',
+        },
+      ],
+      definition: 'dictionary definition',
+      partOfSpeech: 'noun',
+      difficulty: 10,
+    },
+  ];
+  const result = userWordReducer(setFakeInitialState(), {
+    type: actionTypes.SET_USER_WORD_DIFFICULTY,
+    wordId: 'abcdefg',
+    difficulty: 10,
+  });
+  expect(result).toEqual(expected);
+});
