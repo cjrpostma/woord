@@ -16,6 +16,7 @@ export default (state = [], action) => {
             },
           ];
         }
+        return word;
       });
 
     case actionTypes.DELETE_USER_WORD:
@@ -26,6 +27,7 @@ export default (state = [], action) => {
         if (word.id === action.wordId) {
           word.difficulty = action.difficulty;
         }
+        return word;
       });
 
     default:
