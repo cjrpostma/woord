@@ -43,7 +43,7 @@ export const setUserWordDifficulty = (wordId, difficulty) => ({
 });
 
 // random word ------------------------------
-export const fetchRandomWord = randomWord => ({
+export const fetchRandomWordSuccess = randomWord => ({
   type: actionTypes.FETCH_RANDOM_WORD_SUCCESS,
   randomWord,
 });
@@ -56,6 +56,6 @@ export const setError = error => ({
 
 // loading ------------------------------
 export const setIsLoading = loadingStatus => ({
-  type: actionTypes.SET_ISLOADING,
+  type: actionTypes.SET_IS_LOADING,
   loadingStatus,
 });

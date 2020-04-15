@@ -14,4 +14,4 @@ export const FETCH_RANDOM_WORD_SUCCESS = 'FETCH_RANDOM_WORD_SUCCESS';
 export const SET_ERROR = 'SET_ERROR';
 
 // loading ------------------------------
-export const SET_ISLOADING = 'SET_ISLOADING';
+export const SET_IS_LOADING = 'SET_IS_LOADING';

@@ -85,7 +85,7 @@ test('it should return an action with type FETCH_RANDOM_WORD_SUCCESS and payload
     type: actionTypes.FETCH_RANDOM_WORD_SUCCESS,
     randomWord: 'test',
   };
-  const result = actions.fetchRandomWord('test');
+  const result = actions.fetchRandomWordSuccess('test');
   expect(result).toEqual(expectedAction);
 });
 
@@ -100,7 +100,7 @@ test('it should return an action with type SET_ERROR and payload of error', () =
 
 test('it should return an action with type SET_ISLOADING and payload of loadingStatus', () => {
   const expectedAction = {
-    type: actionTypes.SET_ISLOADING,
+    type: actionTypes.SET_IS_LOADING,
     loadingStatus: true,
   };
   const result = actions.setIsLoading(true);
