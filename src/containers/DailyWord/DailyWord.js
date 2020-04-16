@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 
 // icons ------------------------------
@@ -40,24 +40,28 @@ const StyledRefreshIcon = styled(CachedIcon)`
     `}
 `;
 
-const DailyWord = () => (
-  <section>
-    <Header>
-      <StyledHeaderTitle>The Daily Word</StyledHeaderTitle>
-      <StyledHeaderSubtitle>
-        Today is {getTodayFormatted()}
-      </StyledHeaderSubtitle>
-    </Header>
-    <StyledRefreshIcon disabled={false} aria-label="refresh daily word" />
-    <Button>Add to words</Button>
-  </section>
-);
+class DailyWord extends Component {
+  render() {
+    return (
+      <section>
+        <Header>
+          <StyledHeaderTitle>The Daily Word</StyledHeaderTitle>
+          <StyledHeaderSubtitle>
+            Today is {getTodayFormatted()}
+          </StyledHeaderSubtitle>
+        </Header>
+        <StyledRefreshIcon disabled={false} aria-label="refresh daily word" />
+        <Button>Add to words</Button>
+      </section>
+    );
+  }
+}
 
 // will need to connect the component
 // make an api call on load
 // display the result
 // ! add ADD TO WORDS button
-// add refresh button
+// ! add refresh button
 // will need to conditionally render loading, error
 
 export default DailyWord;
