@@ -7,6 +7,7 @@ import CachedIcon from '@material-ui/icons/Cached';
 
 // utils ------------------------------
 import { getTodayFormatted } from '../../utils';
+import { requestCurrentWord } from '../../thunks/requestCurrentWord';
 import { requestRandomWord } from '../../thunks/requestRandomWord';
 
 // components ------------------------------
@@ -43,8 +44,9 @@ const StyledRefreshIcon = styled(CachedIcon)`
 `;
 
 class DailyWord extends Component {
-  componentDidMount() {
-    this.props.requestRandomWord();
+  async componentDidMount() {
+    await this.props.requestRandomWord();
+    this.props.requestCurrentWord(this.props.randomWord);
   }
 
   render() {
@@ -63,8 +65,13 @@ class DailyWord extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  randomWord: state.randomWord,
+});
+
 const mapDispatchToProps = dispatch => ({
+  requestCurrentWord: query => dispatch(requestCurrentWord(query)),
   requestRandomWord: () => dispatch(requestRandomWord()),
 });
 
-export default connect(null, mapDispatchToProps)(DailyWord);
+export default connect(mapStateToProps, mapDispatchToProps)(DailyWord);

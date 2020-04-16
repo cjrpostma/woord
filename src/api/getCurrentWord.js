@@ -9,5 +9,5 @@ export default async query => {
 
   const wordData = await response.json();
 
-  return wordData.length > 1 ? wordData.find(word => word.text) : wordData;
+  return wordData.length > 1 ? wordData.find(word => word.text) : wordData[0];
 };
