@@ -4,12 +4,12 @@ import styled, { css } from 'styled-components';
 import { fadeIn } from '../../styles';
 
 // components ------------------------------
-import WordDetail from '../../containers/WordDetail';
-import WordContainer from '../../containers/WordContainer';
-import AddWord from '../../containers/AddWord';
-import DailyWord from '../../containers/DailyWord';
-import About from '../../components/About';
-import PageNotFound from '../../components/PageNotFound';
+import WordDetail from '../WordDetail/WordDetail';
+import WordContainer from '../WordContainer/WordContainer';
+import AddWord from '../AddWord/AddWord';
+import DailyWord from '../DailyWord/DailyWord';
+import About from '../../components/About/About';
+import PageNotFound from '../../components/PageNotFound/PageNotFound';
 
 const SecondaryTitle = styled.h3`
   color: ${({ theme }) => theme.colors.grayLightest};
@@ -81,7 +81,7 @@ const App = () => (
         <Route path="/woords" component={WordContainer} />
         <Route path="/add" component={AddWord} />
         <Route path="/about" component={About} />
-        <Route path="/" component={DailyWord} />
+        <Route exact path="/" component={DailyWord} />
         <Route component={PageNotFound} />
       </Switch>
       This is the main wrapper. Content inside here needs to take up at least
