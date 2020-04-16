@@ -1,4 +1,10 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
+
+// icons ------------------------------
+import CachedIcon from '@material-ui/icons/Cached';
+
+// utils ------------------------------
 import { getTodayFormatted } from '../../utils';
 
 // components ------------------------------
@@ -6,6 +12,33 @@ import Button from '../../components/Button/Button';
 import Header from '../../components/Header/Header';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
 import StyledHeaderSubtitle from '../../styles/StyledHeaderSubtitle';
+
+const StyledRefreshIcon = styled(CachedIcon)`
+  color: ${({ theme }) => theme.colors.magenta};
+
+  && {
+    display: block;
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+    margin: 2rem auto;
+    transition: transform 150ms ease-in-out 100ms;
+  }
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(0.9);
+  }
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      color: ${({ theme }) => theme.colors.grayLighter};
+
+      &:hover {
+        cursor: auto;
+        transform: scale(1);
+      }
+    `}
+`;
 
 const DailyWord = () => (
   <section>
@@ -15,6 +48,7 @@ const DailyWord = () => (
         Today is {getTodayFormatted()}
       </StyledHeaderSubtitle>
     </Header>
+    <StyledRefreshIcon disabled={false} aria-label="refresh daily word" />
     <Button>Add to words</Button>
   </section>
 );
@@ -22,7 +56,7 @@ const DailyWord = () => (
 // will need to connect the component
 // make an api call on load
 // display the result
-// add ADD TO WORDS button
+// ! add ADD TO WORDS button
 // add refresh button
 // will need to conditionally render loading, error
 
