@@ -28,6 +28,7 @@ const SecondaryTitle = styled.h3`
   @media ${({ theme }) => theme.mediaQueries.below960} {
     font-size: 2.4rem;
   }
+
   @media ${({ theme }) => theme.mediaQueries.below720} {
     font-size: 1.6rem;
   }
@@ -40,11 +41,12 @@ const PrimaryTitle = styled.h1`
   font-weight: 700;
   margin-top: 2rem;
 
-  @media ${({ theme }) => theme.mediaQueries.below720} {
-    font-size: 6rem;
-  }
   @media ${({ theme }) => theme.mediaQueries.below960} {
     font-size: 7rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.below720} {
+    font-size: 6rem;
   }
 `;
 

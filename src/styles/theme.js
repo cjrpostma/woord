@@ -11,6 +11,7 @@ export default {
     secondary: "'Montserrat', sans-serif",
   },
   fontSizes: {
+    xs: '1rem',
     sm: '1.2rem',
     md: '1.5rem',
     lg: '3rem',

@@ -2,11 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-const activeClassName = 'nav-item-active';
-
 const StyledNav = styled.nav`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 
   & {
     visibility: hidden;
@@ -27,6 +26,8 @@ const StyledNav = styled.nav`
   }
 `;
 
+const activeClassName = 'nav-item-active';
+
 const StyledNavLink = styled(NavLink).attrs({ activeClassName })`
   color: #ffffff;
   font-family: ${({ theme }) => theme.fontFamily.secondary};
@@ -43,6 +44,16 @@ const StyledNavLink = styled(NavLink).attrs({ activeClassName })`
 
   &:active {
     outline: 2px solid white;
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.below960} {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
+    margin: 1rem 0.8rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.below720} {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+    margin: 1rem 0.1rem;
   }
 `;
 
