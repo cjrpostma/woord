@@ -7,6 +7,7 @@ import CachedIcon from '@material-ui/icons/Cached';
 
 // utils ------------------------------
 import { getTodayFormatted } from '../../utils';
+import { requestRandomWord } from '../../thunks/requestRandomWord';
 
 // components ------------------------------
 import Button from '../../components/Button/Button';
@@ -43,7 +44,7 @@ const StyledRefreshIcon = styled(CachedIcon)`
 
 class DailyWord extends Component {
   componentDidMount() {
-    // call dispathc method here
+    this.props.requestRandomWord();
   }
 
   render() {
@@ -62,11 +63,8 @@ class DailyWord extends Component {
   }
 }
 
-// will need to connect the component
-// make an api call on load
-// display the result
-// ! add ADD TO WORDS button
-// ! add refresh button
-// will need to conditionally render loading, error
+const mapDispatchToProps = dispatch => ({
+  requestRandomWord: () => dispatch(requestRandomWord()),
+});
 
-export default DailyWord;
+export default connect(null, mapDispatchToProps)(DailyWord);
