@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 
 // icons ------------------------------
@@ -41,6 +42,10 @@ const StyledRefreshIcon = styled(CachedIcon)`
 `;
 
 class DailyWord extends Component {
+  componentDidMount() {
+    // call dispathc method here
+  }
+
   render() {
     return (
       <section>
@@ -51,7 +56,7 @@ class DailyWord extends Component {
           </StyledHeaderSubtitle>
         </Header>
         <StyledRefreshIcon disabled={false} aria-label="refresh daily word" />
-        <Button>Add to words</Button>
+        <Button disabled={false}>Add to words</Button>
       </section>
     );
   }

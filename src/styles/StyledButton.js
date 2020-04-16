@@ -41,6 +41,19 @@ const StyledButton = styled.button.attrs(props => ({
         color: #ffffff;
       `};
   }
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      opacity: 0.6;
+
+      &:hover {
+        cursor: auto;
+        background: ${({ theme }) => theme.colors.magenta};
+        border: 4px solid transparent;
+        color: #ffffff;
+      }
+    `};
 `;
 
 export default StyledButton;
