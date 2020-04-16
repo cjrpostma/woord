@@ -18,7 +18,8 @@ export default {
     xxl: '9rem',
   },
   mediaQueries: {
-    below960: 'only screen and (max-width: 960)',
+    below720: 'only screen and (max-width: 720px)',
+    below960: 'only screen and (max-width: 960px)',
   },
   styles: {
     boxShadow: '12px 18px 24px rgba(0, 0, 0, 0.2)',
