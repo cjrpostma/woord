@@ -64,7 +64,7 @@ const NavigationBar = () => (
     </StyledNavLink>
     <StyledNavLink to="/about">About</StyledNavLink>
     <StyledNavLink to="/add">Add</StyledNavLink>
-    <StyledNavLink to="/woords">Woords</StyledNavLink>
+    <StyledNavLink to="/woords">Woords(4)</StyledNavLink>
   </StyledNav>
 );
 

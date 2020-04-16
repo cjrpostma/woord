@@ -1,5 +1,15 @@
 import React from 'react';
 
-const DailyWord = () => <div>DailyWord</div>;
+// components ------------------------------
+import Header from '../../components/Header/Header';
+import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
+
+const DailyWord = () => (
+  <section>
+    <Header>
+      <StyledHeaderTitle>The Daily Word</StyledHeaderTitle>
+    </Header>
+  </section>
+);
 
 export default DailyWord;
