@@ -11,6 +11,7 @@ export default {
     secondary: "'Montserrat', sans-serif",
   },
   fontSizes: {
+    xs: '1rem',
     sm: '1.2rem',
     md: '1.5rem',
     lg: '3rem',
@@ -20,6 +21,12 @@ export default {
   mediaQueries: {
     below720: 'only screen and (max-width: 720px)',
     below960: 'only screen and (max-width: 960px)',
+  },
+  spacers: {
+    sm: '1rem',
+    md: '2rem',
+    lg: '3rem',
+    xl: '4rem',
   },
   styles: {
     boxShadow: '12px 18px 24px rgba(0, 0, 0, 0.2)',

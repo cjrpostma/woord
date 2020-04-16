@@ -4,12 +4,13 @@ import styled, { css } from 'styled-components';
 import { fadeIn } from '../../styles';
 
 // components ------------------------------
-import WordDetail from '../WordDetail/WordDetail';
-import WordContainer from '../WordContainer/WordContainer';
+import About from '../../components/About/About';
 import AddWord from '../AddWord/AddWord';
 import DailyWord from '../DailyWord/DailyWord';
-import About from '../../components/About/About';
+import NavigationBar from '../NavigationBar/NavigationBar';
 import PageNotFound from '../../components/PageNotFound/PageNotFound';
+import WordContainer from '../WordContainer/WordContainer';
+import WordDetail from '../WordDetail/WordDetail';
 
 const SecondaryTitle = styled.h3`
   color: ${({ theme }) => theme.colors.grayLightest};
@@ -27,6 +28,7 @@ const SecondaryTitle = styled.h3`
   @media ${({ theme }) => theme.mediaQueries.below960} {
     font-size: 2.4rem;
   }
+
   @media ${({ theme }) => theme.mediaQueries.below720} {
     font-size: 1.6rem;
   }
@@ -36,13 +38,15 @@ const PrimaryTitle = styled.h1`
   color: ${({ theme }) => theme.colors.magenta};
   font-family: 'Roboto', sans-serif;
   font-size: ${({ theme }) => theme.fontSizes.xxl};
+  font-weight: 700;
   margin-top: 2rem;
+
+  @media ${({ theme }) => theme.mediaQueries.below960} {
+    font-size: 7rem;
+  }
 
   @media ${({ theme }) => theme.mediaQueries.below720} {
     font-size: 6rem;
-  }
-  @media ${({ theme }) => theme.mediaQueries.below960} {
-    font-size: 7rem;
   }
 `;
 
@@ -71,7 +75,7 @@ const Wrapper = styled.div`
 
 const App = () => (
   <Wrapper>
-    <p>Navigation - Top (Placeholder)</p>
+    <NavigationBar />
     <PrimaryTitle>Woord</PrimaryTitle>
     <SecondaryTitle>Encounter a word you don’t know?</SecondaryTitle>
     <SecondaryTitle shouldFadeIn>Let’s change that.</SecondaryTitle>
@@ -84,11 +88,8 @@ const App = () => (
         <Route exact path="/" component={DailyWord} />
         <Route component={PageNotFound} />
       </Switch>
-      This is the main wrapper. Content inside here needs to take up at least
-      48rem width or else it is very asdas dasdasdsd asdads ads as asd asd asd
-      asd a dasdas asasd as dasda s
     </StyledMain>
-    <p>Navigation - Bottom (Placeholder)</p>
+    <NavigationBar />
   </Wrapper>
 );
 
