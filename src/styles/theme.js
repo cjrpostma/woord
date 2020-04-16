@@ -5,7 +5,10 @@ export default {
     grayLighter: '#d3dbe4',
     grayLightest: '#f4f6f8',
     magenta: '#ff6a67',
-    white: '#ffffff',
+  },
+  fontFamily: {
+    primary: "'Roboto', sans-serif",
+    secondary: "'Montserrat', sans-serif",
   },
   fontSizes: {
     sm: '1.2rem',
