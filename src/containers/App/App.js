@@ -64,7 +64,7 @@ const StyledMain = styled.main`
   }
 `;
 
-const Wrapper = styled.div`
+const AppWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(5, min-content);
@@ -75,7 +75,7 @@ const Wrapper = styled.div`
 `;
 
 const App = () => (
-  <Wrapper>
+  <AppWrapper>
     <NavigationBar />
     <PrimaryTitle>Woord</PrimaryTitle>
     <SecondaryTitle>Encounter a word you don’t know?</SecondaryTitle>
@@ -91,7 +91,7 @@ const App = () => (
       </Switch>
     </StyledMain>
     <NavigationBar />
-  </Wrapper>
+  </AppWrapper>
 );
 
 export default App;
