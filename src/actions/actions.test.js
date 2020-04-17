@@ -1,5 +1,8 @@
+import { v4 as uuidv4 } from 'uuid';
 import * as actionTypes from '../actionTypes';
 import * as actions from './index';
+
+jest.mock('uuid');
 
 const fakeWord = {
   id: 'abcdefg',
@@ -10,6 +13,7 @@ const fakeWord = {
 const realDateNow = Date.now.bind(global.Date);
 const dateNowStub = jest.fn(() => 1530518207007);
 global.Date.now = dateNowStub;
+uuidv4.mockImplementation(() => 'abc');
 
 afterEach(() => {
   global.Date.now = realDateNow;

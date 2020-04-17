@@ -5,6 +5,9 @@ export default (state = null, action) => {
     case actionTypes.FETCH_CURRENT_WORD_SUCCESS:
       return action.currentWord;
 
+    case actionTypes.DELETE_CURRENT_WORD:
+      return null;
+
     default:
       return state;
   }

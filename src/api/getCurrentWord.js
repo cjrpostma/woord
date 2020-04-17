@@ -8,6 +8,11 @@ export default async query => {
   }
 
   const wordData = await response.json();
-
-  return wordData.length > 1 ? wordData.find(word => word.text) : wordData[0];
+  let currentWord;
+  if (wordData.length > 1) {
+    currentWord = wordData.find(word => word.text);
+  } else if (Array.isArray(wordData)) {
+    currentWord = wordData[0];
+  }
+  return currentWord;
 };
