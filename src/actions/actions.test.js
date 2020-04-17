@@ -24,6 +24,14 @@ test('it should return an action with type FETCH_CURRENT_WORD_SUCCESS and payloa
   expect(result).toEqual(expectedAction);
 });
 
+test('it should return an action with type DELETE_CURRENT_WORD', () => {
+  const expectedAction = {
+    type: actionTypes.DELETE_CURRENT_WORD,
+  };
+  const result = actions.deleteCurrentWord();
+  expect(result).toEqual(expectedAction);
+});
+
 test('it should return an action with type ADD_USER_WORD and payload of word', () => {
   const expectedAction = {
     type: actionTypes.ADD_USER_WORD,
