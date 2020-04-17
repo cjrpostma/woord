@@ -8,8 +8,9 @@ const StyledTextInput = styled.input`
   font-family: ${({ theme }) => theme.fontFamily.secondary};
   font-size: ${({ theme }) => theme.fontSizes.md};
   height: 4rem;
-  margin: 0 auto;
+  margin: 0;
   max-width: 26rem;
+  min-width: 26rem;
   padding: 0 1rem;
   width: 100%;
 

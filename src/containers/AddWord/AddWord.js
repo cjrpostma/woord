@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
 // icons ------------------------------
 import Snackbar from '@material-ui/core/Snackbar';
@@ -8,9 +9,8 @@ import CloseIcon from '@material-ui/icons/Close';
 
 // utils ------------------------------
 import { wait } from '../../utils';
-import { addUserWord } from '../../actions';
+import { addUserWord, deleteCurrentWord } from '../../actions';
 import { requestCurrentWord } from '../../thunks/requestCurrentWord';
-import { requestRandomWord } from '../../thunks/requestRandomWord';
 
 // components ------------------------------
 import Button from '../../components/Button/Button';
@@ -22,7 +22,18 @@ import StyledErrorMessage from '../../styles/StyledErrorMessage';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
 import StyledLoaderIcon from '../../styles/StyledLoaderIcon';
 import StyledTextInput from '../../styles/StyledTextInput';
+import StyledSearchIcon from '../../styles/StyledSearchIcon';
 import StyledWord from '../../styles/StyledWord';
+
+const FormControl = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+  max-width: fit-content;
+  margin: 0 auto;
+`;
 
 class AddWord extends Component {
   state = {
@@ -36,19 +47,16 @@ class AddWord extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
+    if (!this.state.query) return;
     await this.props.requestCurrentWord(this.state.query);
     this.setState({ query: '' });
   };
 
   addWord = () => {
     this.props.addUserWord(this.props.currentWord);
+    this.props.deleteCurrentWord();
     this.setState({ open: true });
   };
-
-  // TODO add clearword text link
-  // TODO need an action creator to remove the current word
-  // TODO remove currentWord after adding to word
-  // TODO
 
   render() {
     return (
@@ -58,15 +66,22 @@ class AddWord extends Component {
         </Header>
         <ContentWrapper>
           <form onSubmit={this.handleSubmit}>
-            <StyledTextInput
-              aria-label="Search for a word"
-              id="query"
-              onChange={e => this.setState({ query: e.target.value })}
-              name="query"
-              placeholder="Search for word..."
-              type="text"
-              value={this.state.query}
-            />
+            <FormControl>
+              <StyledTextInput
+                aria-label="Search for a word"
+                id="query"
+                onChange={e => this.setState({ query: e.target.value })}
+                name="query"
+                placeholder="Search for word..."
+                type="text"
+                value={this.state.query}
+              />
+              <StyledSearchIcon
+                aria-label="Submit search for a word"
+                disabled={!this.state.query}
+                onClick={this.handleSubmit}
+              />
+            </FormControl>
           </form>
         </ContentWrapper>
         <ContentWrapper>
@@ -94,9 +109,8 @@ class AddWord extends Component {
           Add to Woords
         </Button>
         <StyledActionText
-          disabled={
-            !this.props.currentWord || this.props.isLoading || this.props.error
-          }
+          disabled={!this.props.currentWord || this.props.isLoading}
+          onClick={() => this.props.deleteCurrentWord()}
         >
           Clear
         </StyledActionText>
@@ -134,6 +148,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addUserWord: word => dispatch(addUserWord(word)),
+  deleteCurrentWord: () => dispatch(deleteCurrentWord()),
   requestCurrentWord: query => dispatch(requestCurrentWord(query)),
 });
 
