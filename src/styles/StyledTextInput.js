@@ -5,7 +5,7 @@ const StyledTextInput = styled.input`
   border: 0;
   display: block;
   color: ${({ theme }) => theme.colors.grayLight};
-  font-family: ${({ theme }) => theme.fontFamily.primary};
+  font-family: ${({ theme }) => theme.fontFamily.secondary};
   font-size: ${({ theme }) => theme.fontSizes.md};
   height: 4rem;
   margin: 0 auto;

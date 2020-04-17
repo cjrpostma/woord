@@ -16,12 +16,11 @@ import { requestRandomWord } from '../../thunks/requestRandomWord';
 import Button from '../../components/Button/Button';
 import ContentWrapper from '../../styles/ContentWrapper';
 import Header from '../../components/Header/Header';
+import StyledActionText from '../../styles/StyledActionText';
 import StyledDefinition from '../../styles/StyledDefinition';
 import StyledErrorMessage from '../../styles/StyledErrorMessage';
-import StyledHeaderSubtitle from '../../styles/StyledHeaderSubtitle';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
 import StyledLoaderIcon from '../../styles/StyledLoaderIcon';
-import StyledRefreshIcon from '../../styles/StyledRefreshIcon';
 import StyledTextInput from '../../styles/StyledTextInput';
 import StyledWord from '../../styles/StyledWord';
 
@@ -46,7 +45,7 @@ class AddWord extends Component {
     this.setState({ open: true });
   };
 
-  // TODO style input
+  // TODO add clearword text link
   // TODO need an action creator to remove the current word
   // TODO remove currentWord after adding to word
   // TODO
@@ -94,6 +93,13 @@ class AddWord extends Component {
         >
           Add to Woords
         </Button>
+        <StyledActionText
+          disabled={
+            !this.props.currentWord || this.props.isLoading || this.props.error
+          }
+        >
+          Clear
+        </StyledActionText>
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
