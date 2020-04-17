@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 // utils ------------------------------
-import { getTodayFormatted } from '../../utils';
+import { getTodayFormatted, wait } from '../../utils';
 import { addUserWord } from '../../actions';
 import { requestCurrentWord } from '../../thunks/requestCurrentWord';
 import { requestRandomWord } from '../../thunks/requestRandomWord';
@@ -24,13 +28,24 @@ const ContentWrapper = styled.div`
 `;
 
 class DailyWord extends Component {
+  state = {
+    open: false,
+  };
+
   async componentDidMount() {
     await this.props.requestRandomWord();
     this.props.requestCurrentWord(this.props.randomWord);
   }
 
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   addWord = async () => {
     this.props.addUserWord(this.props.currentWord);
+    this.setState({ open: true });
+    wait(2000);
+    this.refreshWord();
   };
 
   refreshWord = async () => {
@@ -52,7 +67,7 @@ class DailyWord extends Component {
             <StyledErrorMessage>{this.props.error.message}</StyledErrorMessage>
           )}
           {this.props.isLoading && <StyledLoaderIcon />}
-          {this.props.currentWord && (
+          {this.props.currentWord && !this.props.error && (
             <>
               <StyledWord>{this.props.currentWord.word}</StyledWord>
               <StyledDefinition
@@ -71,8 +86,31 @@ class DailyWord extends Component {
         </Button>
         <StyledRefreshIcon
           aria-label="refresh daily word"
-          disabled={this.props.isLoading || this.props.error}
+          disabled={this.props.isLoading}
           onClick={this.refreshWord}
+        />
+
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.open}
+          autoHideDuration={3000}
+          onClose={this.handleClose}
+          message="Word added to collection."
+          action={
+            <>
+              <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={this.handleClose}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </>
+          }
         />
       </section>
     );
