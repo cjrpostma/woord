@@ -11,14 +11,12 @@ import { requestRandomWord } from '../../thunks/requestRandomWord';
 import Button from '../../components/Button/Button';
 import Header from '../../components/Header/Header';
 import StyledDefinition from '../../styles/StyledDefinition';
+import StyledErrorMessage from '../../styles/StyledErrorMessage';
 import StyledHeaderSubtitle from '../../styles/StyledHeaderSubtitle';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
 import StyledLoaderIcon from '../../styles/StyledLoaderIcon';
 import StyledRefreshIcon from '../../styles/StyledRefreshIcon';
 import StyledWord from '../../styles/StyledWord';
-
-// TODO implement error handling
-// TODO hook up onCLick event to refresh word and add word
 
 const ContentWrapper = styled.div`
   margin: 4rem 0;
@@ -40,6 +38,9 @@ class DailyWord extends Component {
           </StyledHeaderSubtitle>
         </Header>
         <ContentWrapper>
+          {this.props.error && (
+            <StyledErrorMessage>{this.props.error.message}</StyledErrorMessage>
+          )}
           {this.props.isLoading && <StyledLoaderIcon />}
           {this.props.currentWord && (
             <>
@@ -66,6 +67,7 @@ class DailyWord extends Component {
 
 const mapStateToProps = state => ({
   currentWord: state.currentWord,
+  error: state.error,
   isLoading: state.isLoading,
   randomWord: state.randomWord,
 });
