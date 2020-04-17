@@ -2,7 +2,10 @@ import styled from 'styled-components';
 
 const StyledHorizontalRule = styled.hr`
   border: 2px solid ${({ theme }) => theme.colors.magenta};
-  margin: 2rem auto;
+  margin-bottom: ${({ mb }) => mb || '6rem'};
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: ${({ mt }) => mt || '2rem'};
   width: 8rem;
 `;
 
