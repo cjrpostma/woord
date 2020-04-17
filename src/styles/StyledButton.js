@@ -42,6 +42,10 @@ const StyledButton = styled.button.attrs(props => ({
       `};
   }
 
+  &:active {
+    transform: scale(0.9);
+  }
+
   ${({ disabled }) =>
     disabled &&
     css`
