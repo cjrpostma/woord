@@ -7,10 +7,7 @@ const StyledRefreshIcon = styled(SearchIcon)`
   && {
     display: block;
     font-size: ${({ theme }) => theme.fontSizes.lg};
-    margin-right: 1rem;
     transition: transform 150ms ease-in-out 100ms;
-    position: absolute;
-    right: 1rem;
   }
 
   &:hover {

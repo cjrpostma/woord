@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 // utils ------------------------------
-import { wait } from '../../utils';
 import { addUserWord, deleteCurrentWord } from '../../actions';
 import { requestCurrentWord } from '../../thunks/requestCurrentWord';
 
@@ -30,9 +29,14 @@ const FormControl = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  position: relative;
-  max-width: fit-content;
   margin: 0 auto;
+  max-width: fit-content;
+  position: relative;
+`;
+
+const SearchIcon = styled(StyledSearchIcon)`
+  position: absolute;
+  right: 1rem;
 `;
 
 class AddWord extends Component {
@@ -76,7 +80,7 @@ class AddWord extends Component {
                 type="text"
                 value={this.state.query}
               />
-              <StyledSearchIcon
+              <SearchIcon
                 aria-label="Submit search for a word"
                 disabled={!this.state.query}
                 onClick={this.handleSubmit}
