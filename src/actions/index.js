@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import * as actionTypes from '../actionTypes';
 
 // current word ------------------------------
@@ -10,7 +11,7 @@ export const fetchCurrentWordSuccess = currentWord => ({
 export const addUserWord = word => ({
   type: actionTypes.ADD_USER_WORD,
   userWord: {
-    id: Date.now().toString(),
+    id: uuidv4(),
     word: word.word,
     addedOn: Date.now(),
     userDefinitionAttempts: [],
