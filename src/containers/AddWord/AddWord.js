@@ -22,6 +22,7 @@ import StyledHeaderSubtitle from '../../styles/StyledHeaderSubtitle';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
 import StyledLoaderIcon from '../../styles/StyledLoaderIcon';
 import StyledRefreshIcon from '../../styles/StyledRefreshIcon';
+import StyledTextInput from '../../styles/StyledTextInput';
 import StyledWord from '../../styles/StyledWord';
 
 class AddWord extends Component {
@@ -45,7 +46,10 @@ class AddWord extends Component {
     this.setState({ open: true });
   };
 
+  // TODO style input
   // TODO need an action creator to remove the current word
+  // TODO remove currentWord after adding to word
+  // TODO
 
   render() {
     return (
@@ -55,7 +59,7 @@ class AddWord extends Component {
         </Header>
         <ContentWrapper>
           <form onSubmit={this.handleSubmit}>
-            <input
+            <StyledTextInput
               aria-label="Search for a word"
               id="query"
               onChange={e => this.setState({ query: e.target.value })}
@@ -65,7 +69,8 @@ class AddWord extends Component {
               value={this.state.query}
             />
           </form>
-
+        </ContentWrapper>
+        <ContentWrapper>
           {this.props.error && (
             <StyledErrorMessage>{this.props.error.message}</StyledErrorMessage>
           )}
