@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 // utils ------------------------------
 import { getTodayFormatted } from '../../utils';
@@ -27,6 +27,11 @@ class DailyWord extends Component {
     await this.props.requestRandomWord();
     this.props.requestCurrentWord(this.props.randomWord);
   }
+
+  refreshWord = async () => {
+    await this.props.requestRandomWord();
+    this.props.requestCurrentWord(this.props.randomWord);
+  };
 
   render() {
     return (
@@ -57,8 +62,9 @@ class DailyWord extends Component {
           Add to words
         </Button>
         <StyledRefreshIcon
-          disabled={this.props.isLoading || this.props.error}
           aria-label="refresh daily word"
+          disabled={this.props.isLoading || this.props.error}
+          onClick={this.refreshWord}
         />
       </section>
     );
