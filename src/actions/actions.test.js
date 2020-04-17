@@ -3,6 +3,7 @@ import * as actionTypes from '../actionTypes';
 import * as actions from './index';
 
 jest.mock('uuid');
+uuidv4.mockImplementation(() => 'abc');
 
 const fakeWord = {
   id: 'abcdefg',
@@ -10,10 +11,14 @@ const fakeWord = {
   otherProperty: 'fake',
 };
 
-const realDateNow = Date.now.bind(global.Date);
-const dateNowStub = jest.fn(() => 1530518207007);
-global.Date.now = dateNowStub;
-uuidv4.mockImplementation(() => 'abc');
+let realDateNow;
+let dateNowStub;
+
+beforeEach(() => {
+  realDateNow = Date.now.bind(global.Date);
+  dateNowStub = jest.fn(() => 1530518207007);
+  global.Date.now = dateNowStub;
+});
 
 afterEach(() => {
   global.Date.now = realDateNow;
@@ -42,7 +47,7 @@ test('it should return an action with type ADD_USER_WORD and payload of word', (
     userWord: {
       id: 'abc',
       word: 'test',
-      addedOn: Date.now(),
+      addedOn: 1530518207007,
       userDefinitionAttempts: [],
       definition: 'test definition',
       partOfSpeech: 'noun',
@@ -62,14 +67,10 @@ test('it should return an action with type ADD_USER_WORD_ATTEMPT and payload of 
   const expectedAction = {
     type: actionTypes.ADD_USER_WORD_ATTEMPT,
     wordId: 1,
-    attemptedOn: Date.now(),
+    attemptedOn: 1530518207007,
     attemptedDefinition: 'A made up definition',
   };
-  const result = actions.addUserWordAttempt(
-    1,
-    Date.now(),
-    'A made up definition'
-  );
+  const result = actions.addUserWordAttempt(1, 'A made up definition');
   expect(result).toEqual(expectedAction);
 });
 

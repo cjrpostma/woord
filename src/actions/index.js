@@ -25,14 +25,10 @@ export const addUserWord = word => ({
   },
 });
 
-export const addUserWordAttempt = (
-  wordId,
-  attemptedOn,
-  attemptedDefinition
-) => ({
+export const addUserWordAttempt = (wordId, attemptedDefinition) => ({
   type: actionTypes.ADD_USER_WORD_ATTEMPT,
   wordId,
-  attemptedOn,
+  attemptedOn: Date.now(),
   attemptedDefinition,
 });
 
