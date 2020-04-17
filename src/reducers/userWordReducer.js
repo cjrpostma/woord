@@ -3,7 +3,7 @@ import * as actionTypes from '../actionTypes';
 export default (state = [], action) => {
   switch (action.type) {
     case actionTypes.ADD_USER_WORD:
-      return [...state, action.word];
+      return [...state, action.userWord];
 
     case actionTypes.ADD_USER_WORD_ATTEMPT:
       return state.map(word => {

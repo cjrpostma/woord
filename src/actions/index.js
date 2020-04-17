@@ -10,7 +10,7 @@ export const fetchCurrentWordSuccess = currentWord => ({
 export const addUserWord = word => ({
   type: actionTypes.ADD_USER_WORD,
   userWord: {
-    id: word.id,
+    id: Date.now().toString(),
     word: word.word,
     addedOn: Date.now(),
     userDefinitionAttempts: [],

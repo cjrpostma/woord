@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 // utils ------------------------------
 import { getTodayFormatted } from '../../utils';
+import { addUserWord } from '../../actions';
 import { requestCurrentWord } from '../../thunks/requestCurrentWord';
 import { requestRandomWord } from '../../thunks/requestRandomWord';
 
@@ -27,6 +28,10 @@ class DailyWord extends Component {
     await this.props.requestRandomWord();
     this.props.requestCurrentWord(this.props.randomWord);
   }
+
+  addWord = async () => {
+    this.props.addUserWord(this.props.currentWord);
+  };
 
   refreshWord = async () => {
     await this.props.requestRandomWord();
@@ -58,7 +63,10 @@ class DailyWord extends Component {
             </>
           )}
         </ContentWrapper>
-        <Button disabled={this.props.isLoading || this.props.error}>
+        <Button
+          disabled={this.props.isLoading || this.props.error}
+          onClick={this.addWord}
+        >
           Add to words
         </Button>
         <StyledRefreshIcon
@@ -79,6 +87,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  addUserWord: word => dispatch(addUserWord(word)),
   requestCurrentWord: query => dispatch(requestCurrentWord(query)),
   requestRandomWord: () => dispatch(requestRandomWord()),
 });
