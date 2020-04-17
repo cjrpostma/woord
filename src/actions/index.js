@@ -7,6 +7,10 @@ export const fetchCurrentWordSuccess = currentWord => ({
   currentWord,
 });
 
+export const deleteCurrentWord = () => ({
+  type: actionTypes.DELETE_CURRENT_WORD,
+});
+
 // user word ------------------------------
 export const addUserWord = word => ({
   type: actionTypes.ADD_USER_WORD,
@@ -21,14 +25,10 @@ export const addUserWord = word => ({
   },
 });
 
-export const addUserWordAttempt = (
-  wordId,
-  attemptedOn,
-  attemptedDefinition
-) => ({
+export const addUserWordAttempt = (wordId, attemptedDefinition) => ({
   type: actionTypes.ADD_USER_WORD_ATTEMPT,
   wordId,
-  attemptedOn,
+  attemptedOn: Date.now(),
   attemptedDefinition,
 });
 

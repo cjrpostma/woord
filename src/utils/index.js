@@ -33,3 +33,12 @@ export const getTodayFormatted = () => {
 
 export const wait = (amount = 0) =>
   new Promise(resolve => setTimeout(resolve, amount));
+
+export const cleanWordData = wordData => {
+  if (wordData.length > 1) {
+    return wordData.find(word => word.text);
+  }
+  if (Array.isArray(wordData)) {
+    return wordData[0];
+  }
+};

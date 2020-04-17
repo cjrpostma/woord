@@ -2,7 +2,7 @@ import getCurrentWord from './getCurrentWord';
 
 const fakeQuery = 'test';
 
-const fakeURL = `${process.env.REACT_APP_BASE_URL}/v4/word.json/${fakeQuery}/definitions?limit=2&api_key=${process.env.REACT_APP_WORDNIK_KEY}`;
+const fakeURL = `https://api.wordnik.com/v4/word.json/${fakeQuery}/definitions?limit=2&api_key=${process.env.REACT_APP_WORDNIK_KEY}`;
 
 const fakeResponse = [
   {

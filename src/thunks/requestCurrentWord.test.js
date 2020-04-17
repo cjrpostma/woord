@@ -8,16 +8,18 @@ let mockDispatch;
 
 beforeEach(() => {
   fakeQuery = 'test';
-  fakeURL = `${process.env.REACT_APP_BASE_URL}/v4/word.json/${fakeQuery}/definitions?limit=2&api_key=${process.env.REACT_APP_WORDNIK_KEY}`;
-  fakeCurrentWord = {
-    id: 'T5136900-1',
-    partOfSpeech: 'noun',
-    text:
-      'A procedure for critical evaluation; a means of determining the presence, quality, or truth of something; a trial.',
-    sequence: '1',
-    score: 0,
-    word: 'test',
-  };
+  fakeURL = `https://api.wordnik.com/v4/word.json/${fakeQuery}/definitions?limit=2&api_key=${process.env.REACT_APP_WORDNIK_KEY}`;
+  fakeCurrentWord = [
+    {
+      id: 'T5136900-1',
+      partOfSpeech: 'noun',
+      text:
+        'A procedure for critical evaluation; a means of determining the presence, quality, or truth of something; a trial.',
+      sequence: '1',
+      score: 0,
+      word: 'test',
+    },
+  ];
   mockDispatch = jest.fn();
   window.fetch = jest.fn().mockImplementation(() =>
     Promise.resolve({
@@ -65,7 +67,8 @@ test('it should dispatch fetchCurrentWordSuccess with correct argument', async (
   await thunk(mockDispatch);
   expect(mockDispatch).toHaveBeenCalledWith(setIsLoading(true));
   expect(mockDispatch).toHaveBeenCalledWith(
-    fetchCurrentWordSuccess(fakeCurrentWord)
+    fetchCurrentWordSuccess(fakeCurrentWord[0])
   );
   expect(mockDispatch).toHaveBeenCalledWith(setIsLoading(false));
+  expect(mockDispatch).toHaveBeenCalledWith(setError(null));
 });

@@ -18,7 +18,6 @@ const About = () => (
         to log words one encounters while reading that are unknown or perhaps
         only vaguely understood.
       </StyledBodyTypography>
-
       <StyledBodyTypography>
         Once a word is logged, the user can view a formal definition and attempt
         to recite their own definition from memory. Unknown words begin with a

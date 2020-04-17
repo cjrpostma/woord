@@ -2,7 +2,7 @@ import getRandomWord from './getRandomWord';
 
 const fakeQuery = 'test';
 
-const fakeURL = `${process.env.REACT_APP_BASE_URL}/v4/words.json/randomWord?hasDictionaryDef=true&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=-1&api_key=${process.env.REACT_APP_WORDNIK_KEY}`;
+const fakeURL = `https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=-1&api_key=${process.env.REACT_APP_WORDNIK_KEY}`;
 
 const fakeResponse = {
   id: 0,

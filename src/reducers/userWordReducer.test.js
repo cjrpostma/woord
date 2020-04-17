@@ -54,7 +54,7 @@ test('it should return state with new a word', () => {
 
   const result = userWordReducer([], {
     type: actionTypes.ADD_USER_WORD,
-    word: {
+    userWord: {
       id: '123',
       word: '123',
       addedOn: dateNowStub,
@@ -82,7 +82,7 @@ test('it should return state with another new word', () => {
   ];
   const result = userWordReducer(setFakeInitialState(), {
     type: actionTypes.ADD_USER_WORD,
-    word: {
+    userWord: {
       id: '123',
       word: '123',
       addedOn: dateNowStub,

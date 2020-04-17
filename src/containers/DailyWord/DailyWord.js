@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 
 // icons ------------------------------
 import Snackbar from '@material-ui/core/Snackbar';
@@ -80,7 +79,7 @@ class DailyWord extends Component {
           disabled={this.props.isLoading || this.props.error}
           onClick={this.addWord}
         >
-          Add to words
+          Add to Woords
         </Button>
         <StyledRefreshIcon
           aria-label="refresh daily word"
