@@ -23,12 +23,10 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <HashRouter>
-      <React.StrictMode>
-        <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <App />
-        </ThemeProvider>
-      </React.StrictMode>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <App />
+      </ThemeProvider>
     </HashRouter>
   </Provider>,
   document.getElementById('root')
