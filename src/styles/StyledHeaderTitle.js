@@ -7,6 +7,10 @@ const StyledHeaderTitle = styled.h3`
   font-weight: 400;
   margin-bottom: 1rem;
   text-align: center;
+
+  @media ${({ theme }) => theme.mediaQueries.below720} {
+    font-size: ${({ theme }) => theme.fontSizes.md};
+  }
 `;
 
 export default StyledHeaderTitle;

@@ -54,6 +54,10 @@ const StyledButton = styled.button.attrs(props => ({
         color: #ffffff;
       }
     `};
+
+  @media ${({ theme }) => theme.mediaQueries.below720} {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
+  }
 `;
 
 export default StyledButton;

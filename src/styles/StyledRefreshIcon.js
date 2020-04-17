@@ -7,7 +7,7 @@ const StyledRefreshIcon = styled(CachedIcon)`
   && {
     display: block;
     font-size: ${({ theme }) => theme.fontSizes.lg};
-    margin: 2rem auto;
+    margin: 2rem auto 0 auto;
     transition: transform 150ms ease-in-out 100ms;
   }
 
