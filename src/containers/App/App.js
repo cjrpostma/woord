@@ -14,9 +14,9 @@ import WordDetail from '../WordDetail/WordDetail';
 
 const SecondaryTitle = styled.h3`
   color: ${({ theme }) => theme.colors.grayLightest};
-  font-family: 'Montserrat', sans-serif;
+  font-family: ${({ theme }) => theme.fontFamily.secondary};
   font-size: ${({ theme }) => theme.fontSizes.lg};
-  font-weight: 300;
+  font-weight: 400;
   text-align: center;
 
   ${({ shouldFadeIn }) =>
@@ -36,7 +36,7 @@ const SecondaryTitle = styled.h3`
 
 const PrimaryTitle = styled.h1`
   color: ${({ theme }) => theme.colors.magenta};
-  font-family: 'Roboto', sans-serif;
+  font-family: ${({ theme }) => theme.fontFamily.primary};
   font-size: ${({ theme }) => theme.fontSizes.xxl};
   font-weight: 700;
   margin-top: 2rem;
@@ -54,16 +54,17 @@ const StyledMain = styled.main`
   background: ${({ theme }) => theme.colors.grayLightest};
   border-radius: ${({ theme }) => theme.styles.borderRadius};
   box-shadow: ${({ theme }) => theme.styles.boxShadow};
-  margin: 4rem 0;
-  padding: 2rem;
+  margin: 6rem 0;
+  padding: 6rem 2rem;
   max-width: 60rem;
+  width: 100%;
 
   @media ${({ theme }) => theme.mediaQueries.below960} {
     border-radius: 0;
   }
 `;
 
-const Wrapper = styled.div`
+const AppWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(5, min-content);
@@ -74,7 +75,7 @@ const Wrapper = styled.div`
 `;
 
 const App = () => (
-  <Wrapper>
+  <AppWrapper>
     <NavigationBar />
     <PrimaryTitle>Woord</PrimaryTitle>
     <SecondaryTitle>Encounter a word you don’t know?</SecondaryTitle>
@@ -90,7 +91,7 @@ const App = () => (
       </Switch>
     </StyledMain>
     <NavigationBar />
-  </Wrapper>
+  </AppWrapper>
 );
 
 export default App;

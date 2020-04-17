@@ -1,6 +1,6 @@
 export default async query => {
   const response = await fetch(
-    `${process.env.REACT_APP_BASE_URL}/v4/word.json/${query}/definitions?limit=2&api_key=${process.env.REACT_APP_WORDNIK_KEY}`
+    `https://api.wordnik.com/v4/word.json/${query}/definitions?limit=2&api_key=${process.env.REACT_APP_WORDNIK_KEY}`
   );
 
   if (!response.ok) {
@@ -9,5 +9,5 @@ export default async query => {
 
   const wordData = await response.json();
 
-  return wordData.length > 1 ? wordData.find(word => word.text) : wordData;
+  return wordData.length > 1 ? wordData.find(word => word.text) : wordData[0];
 };
