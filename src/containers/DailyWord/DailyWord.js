@@ -15,6 +15,7 @@ import { requestRandomWord } from '../../thunks/requestRandomWord';
 
 // components ------------------------------
 import Button from '../../components/Button/Button';
+import ContentWrapper from '../../styles/ContentWrapper';
 import Header from '../../components/Header/Header';
 import StyledDefinition from '../../styles/StyledDefinition';
 import StyledErrorMessage from '../../styles/StyledErrorMessage';
@@ -23,10 +24,6 @@ import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
 import StyledLoaderIcon from '../../styles/StyledLoaderIcon';
 import StyledRefreshIcon from '../../styles/StyledRefreshIcon';
 import StyledWord from '../../styles/StyledWord';
-
-const ContentWrapper = styled.div`
-  margin: 4rem 0;
-`;
 
 class DailyWord extends Component {
   state = {
