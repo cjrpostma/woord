@@ -72,7 +72,9 @@ const NavigationBar = ({ userWords }) => (
   </StyledNav>
 );
 
-NavigationBar.propTypes = {};
+NavigationBar.propTypes = {
+  userWords: PropTypes.array.isRequired,
+};
 
 const mapStateToProps = state => ({
   userWords: state.userWords,
