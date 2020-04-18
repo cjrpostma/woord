@@ -1,1 +1,1 @@
-export const findWord = (words, id) => [...words].find(word => word.id === id);
+export const findWord = (id, words) => [...words].find(word => word.id === id);

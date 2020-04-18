@@ -1,7 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import styled, { css } from 'styled-components';
-import { fadeIn } from '../../styles';
+import styled from 'styled-components';
+
+// selectors ------------------------------
+import { findWord } from '../../selectors';
 
 // components ------------------------------
 import About from '../../components/About/About';
@@ -9,46 +13,10 @@ import AddWord from '../AddWord/AddWord';
 import DailyWord from '../DailyWord/DailyWord';
 import NavigationBar from '../NavigationBar/NavigationBar';
 import PageNotFound from '../../components/PageNotFound/PageNotFound';
+import StyledPrimaryTitle from '../../styles/StyledPrimaryTitle';
+import StyledSecondaryTitle from '../../styles/StyledSecondaryTItle';
 import WordContainer from '../WordContainer/WordContainer';
 import WordDetail from '../WordDetail/WordDetail';
-
-const SecondaryTitle = styled.h3`
-  color: ${({ theme }) => theme.colors.grayLightest};
-  font-family: ${({ theme }) => theme.fontFamily.secondary};
-  font-size: ${({ theme }) => theme.fontSizes.lg};
-  font-weight: 400;
-  text-align: center;
-
-  ${({ shouldFadeIn }) =>
-    shouldFadeIn &&
-    css`
-      animation: 2s ${fadeIn} ease-in;
-    `}
-
-  @media ${({ theme }) => theme.mediaQueries.below960} {
-    font-size: 2.4rem;
-  }
-
-  @media ${({ theme }) => theme.mediaQueries.below720} {
-    font-size: 1.6rem;
-  }
-`;
-
-const PrimaryTitle = styled.h1`
-  color: ${({ theme }) => theme.colors.magenta};
-  font-family: ${({ theme }) => theme.fontFamily.primary};
-  font-size: ${({ theme }) => theme.fontSizes.xxl};
-  font-weight: 700;
-  margin-top: 2rem;
-
-  @media ${({ theme }) => theme.mediaQueries.below960} {
-    font-size: 7rem;
-  }
-
-  @media ${({ theme }) => theme.mediaQueries.below720} {
-    font-size: 6rem;
-  }
-`;
 
 const StyledMain = styled.main`
   background: ${({ theme }) => theme.colors.grayLightest};
@@ -74,15 +42,35 @@ const AppWrapper = styled.div`
   width: 100%;
 `;
 
-const App = () => (
+const App = props => (
   <AppWrapper>
     <NavigationBar />
-    <PrimaryTitle>Woord</PrimaryTitle>
-    <SecondaryTitle>Encounter a word you don’t know?</SecondaryTitle>
-    <SecondaryTitle shouldFadeIn>Let’s change that.</SecondaryTitle>
+    <StyledPrimaryTitle>Woord</StyledPrimaryTitle>
+    <StyledSecondaryTitle>
+      Encounter a word you don’t know?
+    </StyledSecondaryTitle>
+    <StyledSecondaryTitle shouldFadeIn>Let’s change that.</StyledSecondaryTitle>
     <StyledMain>
       <Switch>
-        <Route path="/woords/:word" component={WordDetail} />
+        <Route
+          path="/woords/:word/:id"
+          render={({ match }) => {
+            const { id } = match.params;
+            const selectedWord = props.findWord(id);
+            console.log(selectedWord);
+            return (
+              <WordDetail
+                addedOn={selectedWord.addedOn}
+                id={selectedWord.id}
+                definition={selectedWord.definition}
+                difficulty={selectedWord.difficulty}
+                partOfSpeech={selectedWord.partOfSpeech}
+                userDefinitionAttempts={selectedWord.userDefinitionAttempts}
+                word={selectedWord.word}
+              />
+            );
+          }}
+        />
         <Route path="/woords" component={WordContainer} />
         <Route path="/add" component={AddWord} />
         <Route path="/about" component={About} />
@@ -94,4 +82,11 @@ const App = () => (
   </AppWrapper>
 );
 
-export default App;
+App.propTypes = {};
+
+const mapStateToProps = state => ({
+  findWord: id => findWord(id, state.userWords),
+  userWords: state.userWords,
+});
+
+export default connect(mapStateToProps)(App);

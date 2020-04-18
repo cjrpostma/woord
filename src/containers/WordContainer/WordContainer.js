@@ -52,6 +52,7 @@ const WordContainer = ({ userWords }) => (
         {userWords.map(word => (
           <WordCard
             difficulty={word.difficulty}
+            id={word.id}
             key={word.id}
             word={word.word}
           />

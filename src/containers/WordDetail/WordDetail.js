@@ -31,10 +31,20 @@ class WordDetail extends Component {
   };
 
   render() {
+    const {
+      addedOn,
+      definition,
+      difficulty,
+      id,
+      partOfSpeech,
+      userDefinitionAttempts,
+      word,
+    } = this.props;
+
     return (
       <section>
         <Header>
-          <StyledHeaderTitle>Word</StyledHeaderTitle>
+          <StyledHeaderTitle>{word}</StyledHeaderTitle>
           <StyledHeaderSubtitle>Added on ...</StyledHeaderSubtitle>
           <StyledHeaderSubtitle>Reviewed on ...</StyledHeaderSubtitle>
         </Header>
@@ -48,7 +58,7 @@ class WordDetail extends Component {
           View definition
         </Button>
         <StyledActionText
-          disabled={!this.props.currentWord || this.props.isLoading}
+          disabled={this.props.isLoading}
           onClick={() => this.props.deleteCurrentWord()}
         >
           Delete woord
@@ -58,12 +68,6 @@ class WordDetail extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  currentWord: state.currentWord,
-  error: state.error,
-  isLoading: state.isLoading,
-});
-
 const mapDispatchToProps = dispatch => ({
   addUserWord: word => dispatch(addUserWord(word)),
   deleteCurrentWord: () => dispatch(deleteCurrentWord()),
@@ -71,4 +75,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(requestCurrentWord(userDefinitionAttempt)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(WordDetail);
+export default connect(null, mapDispatchToProps)(WordDetail);

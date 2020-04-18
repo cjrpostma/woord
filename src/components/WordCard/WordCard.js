@@ -28,8 +28,8 @@ const StyledLink = styled(Link)`
   visibility: visible;
 `;
 
-const WordCard = ({ difficulty, word }) => (
-  <StyledLink to={`woords/${word}`}>
+const WordCard = ({ difficulty, id, word }) => (
+  <StyledLink to={`woords/${word}/${id}`}>
     <p>{word}</p>
     <DifficultyRatingCircle difficulty={difficulty} />
   </StyledLink>
@@ -37,6 +37,7 @@ const WordCard = ({ difficulty, word }) => (
 
 WordCard.propTypes = {
   difficulty: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   word: PropTypes.string.isRequired,
 };
 
