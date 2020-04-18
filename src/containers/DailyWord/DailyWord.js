@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // icons ------------------------------
@@ -118,6 +119,13 @@ const mapStateToProps = state => ({
   isLoading: state.isLoading,
   randomWord: state.randomWord,
 });
+
+DailyWord.propTypes = {
+  currentWord: PropTypes.object,
+  error: PropTypes.object,
+  isLoading: PropTypes.bool,
+  randomWord: PropTypes.string,
+};
 
 const mapDispatchToProps = dispatch => ({
   addUserWord: word => dispatch(addUserWord(word)),
