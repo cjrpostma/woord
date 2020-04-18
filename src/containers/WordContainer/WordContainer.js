@@ -50,7 +50,11 @@ const WordContainer = ({ userWords }) => (
       )}
       <WordCardWrapper>
         {userWords.map(word => (
-          <WordCard difficulty={word.difficulty} word={word.word} />
+          <WordCard
+            difficulty={word.difficulty}
+            key={word.id}
+            word={word.word}
+          />
         ))}
       </WordCardWrapper>
     </ContentWrapper>

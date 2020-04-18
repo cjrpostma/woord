@@ -26,7 +26,7 @@ const StyledArticle = styled.article`
   visibility: visible;
 `;
 
-const WordCard = ({ word, difficulty }) => (
+const WordCard = ({ difficulty, id, word }) => (
   <StyledArticle>
     <p>{word}</p>
     <DifficultyRatingCircle difficulty={difficulty} />
