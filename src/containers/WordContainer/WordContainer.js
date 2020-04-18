@@ -6,7 +6,12 @@ import styled from 'styled-components';
 // components ------------------------------
 import ContentWrapper from '../../styles/ContentWrapper';
 import Header from '../../components/Header/Header';
+import StyledBodyTypography from '../../styles/StyledBodyTypography';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
+
+const CenteredBodyTypography = styled(StyledBodyTypography)`
+  text-align: center;
+`;
 
 const WordCardWrapper = styled.div`
   display: flex;
@@ -52,6 +57,16 @@ const WordContainer = ({ userWords }) => (
       <StyledHeaderTitle>Woords</StyledHeaderTitle>
     </Header>
     <ContentWrapper>
+      {!userWords.length && (
+        <>
+          <CenteredBodyTypography>
+            You currently have no Woords.
+          </CenteredBodyTypography>
+          <CenteredBodyTypography>
+            Add a few to get started!
+          </CenteredBodyTypography>
+        </>
+      )}
       <WordCardWrapper>
         {userWords.map(word => (
           <p>{word.word}</p>
