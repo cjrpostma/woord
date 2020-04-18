@@ -40,15 +40,31 @@ class WordDetail extends Component {
       word,
     } = this.props;
 
-    const date = new Date(addedOn);
+    const addedOnDate = new Date(addedOn).toLocaleDateString();
+
+    const previousReview =
+      userDefinitionAttempts[userDefinitionAttempts.length - 1];
+
+    let reviewedOnDate;
+
+    if (previousReview && previousReview.length) {
+      reviewedOnDate = new Date(
+        previousReview.attemptedOn
+      ).toLocaleDateString();
+    } else {
+      reviewedOnDate = '';
+    }
+
     return (
       <section>
         <Header>
           <StyledHeaderTitle>{capitalize(word)}</StyledHeaderTitle>
-          <StyledHeaderSubtitle>
-            Added on {date.toLocaleDateString()}
-          </StyledHeaderSubtitle>
-          <StyledHeaderSubtitle>Reviewed on ...</StyledHeaderSubtitle>
+          <StyledHeaderSubtitle>Added on {addedOnDate}</StyledHeaderSubtitle>
+          {reviewedOnDate && (
+            <StyledHeaderSubtitle>
+              Reviewed on {reviewedOnDate}
+            </StyledHeaderSubtitle>
+          )}
         </Header>
 
         <Button
