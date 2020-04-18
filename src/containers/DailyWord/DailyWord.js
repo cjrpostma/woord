@@ -9,7 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 // utils ------------------------------
 import { getTodayFormatted, wait } from '../../utils';
-import { addUserWord } from '../../actions';
+import { addUserWord, deleteCurrentWord } from '../../actions';
 import { requestCurrentWord } from '../../thunks/requestCurrentWord';
 import { requestRandomWord } from '../../thunks/requestRandomWord';
 
@@ -33,6 +33,10 @@ class DailyWord extends Component {
   async componentDidMount() {
     await this.props.requestRandomWord();
     this.props.requestCurrentWord(this.props.randomWord);
+  }
+
+  componentWillUnmount() {
+    this.props.deleteCurrentWord();
   }
 
   handleClose = () => {
@@ -113,6 +117,17 @@ class DailyWord extends Component {
   }
 }
 
+DailyWord.propTypes = {
+  addUserWord: PropTypes.func.isRequired,
+  currentWord: PropTypes.object,
+  deleteCurrentWord: PropTypes.func.isRequired,
+  error: PropTypes.object,
+  isLoading: PropTypes.bool,
+  randomWord: PropTypes.string,
+  requestCurrentWord: PropTypes.func.isRequired,
+  requestRandomWord: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = state => ({
   currentWord: state.currentWord,
   error: state.error,
@@ -120,15 +135,9 @@ const mapStateToProps = state => ({
   randomWord: state.randomWord,
 });
 
-DailyWord.propTypes = {
-  currentWord: PropTypes.object,
-  error: PropTypes.object,
-  isLoading: PropTypes.bool,
-  randomWord: PropTypes.string,
-};
-
 const mapDispatchToProps = dispatch => ({
   addUserWord: word => dispatch(addUserWord(word)),
+  deleteCurrentWord: () => dispatch(deleteCurrentWord()),
   requestCurrentWord: query => dispatch(requestCurrentWord(query)),
   requestRandomWord: () => dispatch(requestRandomWord()),
 });
