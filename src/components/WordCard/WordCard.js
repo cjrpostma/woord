@@ -15,7 +15,7 @@ const StyledArticle = styled.article`
   justify-content: space-around;
   margin: ${({ theme }) => theme.spacers.sm};
   max-width: 24rem;
-  padding: 1rem 2rem;
+  padding: 2rem;
   text-align: center;
   text-transform: uppercase;
   transition: opacity 150ms linear 100ms, transform 150ms ease-in-out 100ms;
