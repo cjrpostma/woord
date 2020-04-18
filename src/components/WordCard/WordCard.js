@@ -1,9 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // components ------------------------------
 import DifficultyRatingCircle from '../DifficultyRatingCircle/DifficultyRatingCircle';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  align-items: center;
+  background: ${({ theme }) => theme.colors.magenta};
+  border-radius: ${({ theme }) => theme.styles.borderRadius};
+  color: #ffffff;
+  display: flex;
+  flex: auto;
+  flex-wrap: nowrap;
+  font-family: ${({ theme }) => theme.fontFamily.secondary};
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: 400;
+  justify-content: space-evenly;
+  margin: ${({ theme }) => theme.spacers.sm};
+  max-width: 24rem;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  transition: opacity 150ms linear 100ms, transform 150ms ease-in-out 100ms;
+  visibility: visible;
+`;
 
 const StyledArticle = styled.article`
   align-items: center;
@@ -26,16 +49,16 @@ const StyledArticle = styled.article`
   visibility: visible;
 `;
 
-const WordCard = ({ difficulty, id, word }) => (
-  <StyledArticle>
+const WordCard = ({ difficulty, word }) => (
+  <StyledLink to={`woords/${word}`}>
     <p>{word}</p>
     <DifficultyRatingCircle difficulty={difficulty} />
-  </StyledArticle>
+  </StyledLink>
 );
 
 WordCard.propTypes = {
-  word: PropTypes.string.isRequired,
   difficulty: PropTypes.number.isRequired,
+  word: PropTypes.string.isRequired,
 };
 
 export default WordCard;

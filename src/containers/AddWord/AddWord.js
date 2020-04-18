@@ -69,6 +69,22 @@ class AddWord extends Component {
           <StyledHeaderTitle>Add Woord</StyledHeaderTitle>
         </Header>
         <ContentWrapper>
+          {this.props.error && (
+            <StyledErrorMessage>{this.props.error.message}</StyledErrorMessage>
+          )}
+          {this.props.isLoading && <StyledLoaderIcon />}
+          {this.props.currentWord && !this.props.error && (
+            <>
+              <StyledWord>{this.props.currentWord.word}</StyledWord>
+              <StyledDefinition
+                dangerouslySetInnerHTML={{
+                  __html: `"${this.props.currentWord.text}"`,
+                }}
+              />
+            </>
+          )}
+        </ContentWrapper>
+        <ContentWrapper>
           <form onSubmit={this.handleSubmit}>
             <FormControl>
               <StyledTextInput
@@ -88,25 +104,11 @@ class AddWord extends Component {
             </FormControl>
           </form>
         </ContentWrapper>
-        <ContentWrapper>
-          {this.props.error && (
-            <StyledErrorMessage>{this.props.error.message}</StyledErrorMessage>
-          )}
-          {this.props.isLoading && <StyledLoaderIcon />}
-          {this.props.currentWord && !this.props.error && (
-            <>
-              <StyledWord>{this.props.currentWord.word}</StyledWord>
-              <StyledDefinition
-                dangerouslySetInnerHTML={{
-                  __html: `"${this.props.currentWord.text}"`,
-                }}
-              />
-            </>
-          )}
-        </ContentWrapper>
         <Button
           disabled={
-            !this.props.currentWord || this.props.isLoading || this.props.error
+            !this.props.currentWord ||
+            this.props.isLoading ||
+            !!this.props.error
           }
           onClick={this.addWord}
         >

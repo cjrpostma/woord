@@ -82,7 +82,7 @@ const App = () => (
     <SecondaryTitle shouldFadeIn>Let’s change that.</SecondaryTitle>
     <StyledMain>
       <Switch>
-        <Route path="/woords/:id" component={WordDetail} />
+        <Route path="/woords/:word" component={WordDetail} />
         <Route path="/woords" component={WordContainer} />
         <Route path="/add" component={AddWord} />
         <Route path="/about" component={About} />
