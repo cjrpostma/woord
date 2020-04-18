@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -57,15 +59,25 @@ const StyledNavLink = styled(NavLink).attrs({ activeClassName })`
   }
 `;
 
-const NavigationBar = () => (
+const NavigationBar = ({ userWords }) => (
   <StyledNav>
     <StyledNavLink exact to="/">
       Home
     </StyledNavLink>
     <StyledNavLink to="/about">About</StyledNavLink>
     <StyledNavLink to="/add">Add</StyledNavLink>
-    <StyledNavLink to="/woords">Woords(4)</StyledNavLink>
+    <StyledNavLink to="/woords">
+      Woords({userWords && userWords.length})
+    </StyledNavLink>
   </StyledNav>
 );
 
-export default NavigationBar;
+NavigationBar.propTypes = {
+  userWords: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = state => ({
+  userWords: state.userWords,
+});
+
+export default connect(mapStateToProps)(NavigationBar);
