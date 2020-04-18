@@ -25,6 +25,14 @@ const StyledDifficultyRating = styled.svg`
   width: 4rem;
   height: 4rem;
 
+  & path.circle {
+    animation: ${progress} 1s ease-out forwards;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 0.125rem;
+    stroke-linecap: square;
+  }
+
   & path.ring {
     fill: ${({ theme }) => theme.colors.magenta};
     stroke: ${({ theme }) => theme.colors.grayLighter};
@@ -36,14 +44,6 @@ const StyledDifficultyRating = styled.svg`
     font-family: ${({ theme }) => theme.fontFamily.secondary};
     font-size: ${({ theme }) => theme.fontSizes.xs};
     font-weight: 400;
-  }
-
-  & path.circle {
-    animation: ${progress} 1s ease-out forwards;
-    fill: none;
-    stroke: #ffffff;
-    stroke-width: 0.125rem;
-    stroke-linecap: square;
   }
 `;
 
