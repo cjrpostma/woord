@@ -9,3 +9,9 @@ export const fadeIn = keyframes`
     opacity: 1;
   }
 `;
+
+export const progress = keyframes`
+  0% {
+    stroke-dasharray: 0 100;
+  }
+`;
