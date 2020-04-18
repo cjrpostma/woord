@@ -34,7 +34,7 @@ class WordDetail extends Component {
     return (
       <section>
         <Header>
-          <StyledHeaderTitle>Add Woord</StyledHeaderTitle>
+          <StyledHeaderTitle>Word</StyledHeaderTitle>
           <StyledHeaderSubtitle>Added on ...</StyledHeaderSubtitle>
           <StyledHeaderSubtitle>Reviewed on ...</StyledHeaderSubtitle>
         </Header>
