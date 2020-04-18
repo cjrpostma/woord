@@ -16,7 +16,7 @@ const StyledArticle = styled.article`
   font-family: ${({ theme }) => theme.fontFamily.secondary};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 400;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin: ${({ theme }) => theme.spacers.sm};
   max-width: 24rem;
   padding: 1rem;
