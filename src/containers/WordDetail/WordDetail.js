@@ -15,13 +15,20 @@ import Button from '../../components/Button/Button';
 import ContentWrapper from '../../styles/ContentWrapper';
 import Header from '../../components/Header/Header';
 import StyledActionText from '../../styles/StyledActionText';
+import StyledBodyTypography from '../../styles/StyledBodyTypography';
 import StyledDefinition from '../../styles/StyledDefinition';
-import StyledErrorMessage from '../../styles/StyledErrorMessage';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
 import StyledLoaderIcon from '../../styles/StyledLoaderIcon';
 import StyledHeaderSubtitle from '../../styles/StyledHeaderSubtitle';
-import StyledTextInput from '../../styles/StyledTextInput';
 import StyledWord from '../../styles/StyledWord';
+
+const CenteredBodyTypography = styled(StyledBodyTypography)`
+  text-align: center;
+`;
+
+const ItalicizedSpan = styled.span`
+  font-style: italic;
+`;
 
 class WordDetail extends Component {
   state = {
@@ -66,7 +73,11 @@ class WordDetail extends Component {
             </StyledHeaderSubtitle>
           )}
         </Header>
-
+        <CenteredBodyTypography>
+          Think about the definition of <ItalicizedSpan>{word}</ItalicizedSpan>{' '}
+          and recite it from memory. Then record your attempt at the definition
+          below.
+        </CenteredBodyTypography>
         <Button
           disabled={
             !this.props.currentWord || this.props.isLoading || this.props.error
