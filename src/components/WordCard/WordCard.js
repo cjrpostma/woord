@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+// components ------------------------------
+import DifficultyRatingCircle from '../DifficultyRatingCircle/DifficultyRatingCircle';
+
 const StyledArticle = styled.article`
   background: ${({ theme }) => theme.colors.magenta};
   border-radius: ${({ theme }) => theme.styles.borderRadius};
@@ -25,7 +28,7 @@ const StyledArticle = styled.article`
 const WordCard = ({ word, difficulty }) => (
   <StyledArticle>
     <p>{word}</p>
-    <p>{difficulty}</p>
+    <DifficultyRatingCircle difficulty={difficulty} />
   </StyledArticle>
 );
 
