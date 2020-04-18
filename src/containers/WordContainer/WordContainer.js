@@ -8,6 +8,7 @@ import ContentWrapper from '../../styles/ContentWrapper';
 import Header from '../../components/Header/Header';
 import StyledBodyTypography from '../../styles/StyledBodyTypography';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
+import WordCard from '../../components/WordCard/WordCard';
 
 const CenteredBodyTypography = styled(StyledBodyTypography)`
   text-align: center;
@@ -17,26 +18,6 @@ const WordCardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   visibility: hidden;
-
-  && > * {
-    background: ${({ theme }) => theme.colors.magenta};
-    border-radius: ${({ theme }) => theme.styles.borderRadius};
-    color: #ffffff;
-    display: flex;
-    flex: auto;
-    flex-wrap: nowrap;
-    font-family: ${({ theme }) => theme.fontFamily.secondary};
-    font-size: 1.5em;
-    font-weight: 400;
-    justify-content: space-around;
-    margin: ${({ theme }) => theme.spacers.sm};
-    max-width: 24rem;
-    padding: 1rem 2rem;
-    text-align: center;
-    text-transform: uppercase;
-    transition: opacity 150ms linear 100ms, transform 150ms ease-in-out 100ms;
-    visibility: visible;
-  }
 
   &&:hover > * {
     opacity: 0.4;
@@ -69,7 +50,7 @@ const WordContainer = ({ userWords }) => (
       )}
       <WordCardWrapper>
         {userWords.map(word => (
-          <p>{word.word}</p>
+          <WordCard difficulty={word.difficulty} word={word.word} />
         ))}
       </WordCardWrapper>
     </ContentWrapper>
