@@ -144,6 +144,7 @@ class AddWord extends Component {
     );
   }
 }
+
 const mapStateToProps = state => ({
   currentWord: state.currentWord,
   error: state.error,

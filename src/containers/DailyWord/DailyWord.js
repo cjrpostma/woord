@@ -54,10 +54,8 @@ class DailyWord extends Component {
     return (
       <section>
         <Header>
-          <StyledHeaderTitle>The Daily Word</StyledHeaderTitle>
-          <StyledHeaderSubtitle>
-            Today is {getTodayFormatted()}
-          </StyledHeaderSubtitle>
+          <StyledHeaderTitle>Daily Word</StyledHeaderTitle>
+          <StyledHeaderSubtitle>{getTodayFormatted()}</StyledHeaderSubtitle>
         </Header>
         <ContentWrapper>
           {this.props.error && (

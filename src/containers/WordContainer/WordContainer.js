@@ -19,6 +19,24 @@ const WordContainer = ({ userWords }) => (
   </section>
 );
 
+WordContainer.propTypes = {
+  userWords: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      word: PropTypes.string,
+      addedOn: PropTypes.number,
+      userDefinitionAttempts: PropTypes.arrayOf(
+        PropTypes.shape({
+          attemptedOn: PropTypes.number,
+          attemptedDefinition: PropTypes.string,
+        })
+      ),
+      definition: PropTypes.string,
+      difficulty: PropTypes.number,
+    })
+  ).isRequired,
+};
+
 const mapStateToProps = state => ({
   userWords: state.userWords,
 });
