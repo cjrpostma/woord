@@ -8,8 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 // utils ------------------------------
-import { addUserWord, deleteCurrentWord } from '../../actions';
-import { requestCurrentWord } from '../../thunks/requestCurrentWord';
+import { capitalize } from '../../utils';
 
 // components ------------------------------
 import Button from '../../components/Button/Button';
@@ -41,11 +40,14 @@ class WordDetail extends Component {
       word,
     } = this.props;
 
+    const date = new Date(addedOn);
     return (
       <section>
         <Header>
-          <StyledHeaderTitle>{word}</StyledHeaderTitle>
-          <StyledHeaderSubtitle>Added on ...</StyledHeaderSubtitle>
+          <StyledHeaderTitle>{capitalize(word)}</StyledHeaderTitle>
+          <StyledHeaderSubtitle>
+            Added on {date.toLocaleDateString()}
+          </StyledHeaderSubtitle>
           <StyledHeaderSubtitle>Reviewed on ...</StyledHeaderSubtitle>
         </Header>
 
@@ -68,11 +70,6 @@ class WordDetail extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  addUserWord: word => dispatch(addUserWord(word)),
-  deleteCurrentWord: () => dispatch(deleteCurrentWord()),
-  requestCurrentWord: userDefinitionAttempt =>
-    dispatch(requestCurrentWord(userDefinitionAttempt)),
-});
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(null, mapDispatchToProps)(WordDetail);

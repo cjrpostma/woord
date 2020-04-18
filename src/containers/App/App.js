@@ -57,7 +57,6 @@ const App = props => (
           render={({ match }) => {
             const { id } = match.params;
             const selectedWord = props.findWord(id);
-            console.log(selectedWord);
             return (
               <WordDetail
                 addedOn={selectedWord.addedOn}
