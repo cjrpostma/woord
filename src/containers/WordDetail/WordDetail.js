@@ -33,6 +33,10 @@ const CenteredBodyTypography = styled(StyledBodyTypography)`
   text-align: center;
 `;
 
+const BoldSpan = styled.span`
+  font-weight: 700;
+`;
+
 const ItalicizedSpan = styled.span`
   font-style: italic;
 `;
@@ -88,7 +92,6 @@ class WordDetail extends Component {
       this.setState({ sliderValue: 1, userDefinitionAttempt: '' });
     }
 
-    // always toggle the open status
     this.setState(prevState => ({ showAttempt: !prevState.showAttempt }));
   };
 
@@ -107,8 +110,9 @@ class WordDetail extends Component {
       userDefinitionAttempts[userDefinitionAttempts.length - 1];
 
     let reviewedOnDate;
+    console.log(previousReview);
 
-    if (previousReview && previousReview.length) {
+    if (previousReview) {
       reviewedOnDate = new Date(
         previousReview.attemptedOn
       ).toLocaleDateString();
@@ -133,56 +137,76 @@ class WordDetail extends Component {
             </StyledHeaderSubtitle>
           )}
         </Header>
-        <CenteredBodyTypography>
-          Step 1.
-          <br />
-          Recite the definition of <ItalicizedSpan>{word}</ItalicizedSpan> from
-          memory.
-        </CenteredBodyTypography>
-        <ContentWrapper>
-          <form onSubmit={this.handleSubmit}>
-            <StyledTextArea
-              aria-label={`Enter your definition for the word ${word}`}
-              id="query"
-              onChange={e =>
-                this.setState({ userDefinitionAttempt: e.target.value })
-              }
-              name="query"
-              placeholder="Record definition attempt..."
-              type="textarea"
-              value={this.state.userDefinitionAttempt}
-            />
+
+        {!this.state.showAttempt && (
+          <>
+            <CenteredBodyTypography>
+              <BoldSpan>Step 1.</BoldSpan>
+              <br />
+              Recite the definition of <ItalicizedSpan>
+                {word}
+              </ItalicizedSpan>{' '}
+              from memory.
+            </CenteredBodyTypography>
             <ContentWrapper>
-              <CenteredBodyTypography>
-                Step 2.
-                <br />
-                How difficult was it to recall the definition?
-              </CenteredBodyTypography>
+              <form onSubmit={this.handleSubmit}>
+                <StyledTextArea
+                  aria-label={`Enter your definition for the word ${word}`}
+                  id="query"
+                  onChange={e =>
+                    this.setState({ userDefinitionAttempt: e.target.value })
+                  }
+                  name="query"
+                  placeholder="Record definition attempt..."
+                  type="textarea"
+                  value={this.state.userDefinitionAttempt}
+                />
+                <ContentWrapper>
+                  <CenteredBodyTypography>
+                    <BoldSpan>Step 2.</BoldSpan>
+                    <br />
+                    How difficult was it to recall the definition?
+                  </CenteredBodyTypography>
+                </ContentWrapper>
+                <StyledSlider
+                  defaultValue={1}
+                  marks
+                  max={10}
+                  min={1}
+                  onChange={this.handleSliderChange}
+                  step={1}
+                  value={this.state.sliderValue}
+                  valueLabelDisplay="auto"
+                />
+              </form>
             </ContentWrapper>
-            <StyledSlider
-              defaultValue={1}
-              marks
-              max={10}
-              min={1}
-              onChange={this.handleSliderChange}
-              step={1}
-              value={this.state.sliderValue}
-              valueLabelDisplay="auto"
-            />
-          </form>
-        </ContentWrapper>
-        <ContentWrapper>
-          {this.state.showDefinition && (
-            <>
-              <StyledWord>{word}</StyledWord>
-              <StyledDefinition
+          </>
+        )}
+
+        {this.state.showAttempt && (
+          <>
+            <CenteredBodyTypography>
+              <BoldSpan>Your progress has been recorded!</BoldSpan>
+            </CenteredBodyTypography>
+            <CenteredBodyTypography>
+              Your definition:
+              <br />
+              <ItalicizedSpan>
+                "{previousReview.attemptedDefinition}"
+              </ItalicizedSpan>
+            </CenteredBodyTypography>
+            <CenteredBodyTypography>
+              Dictionary definition:
+              <br />
+              <ItalicizedSpan
                 dangerouslySetInnerHTML={{
                   __html: `"${definition}"`,
                 }}
               />
-            </>
-          )}
-        </ContentWrapper>
+            </CenteredBodyTypography>
+          </>
+        )}
+
         <Button
           disabled={
             !this.state.userDefinitionAttempt && !this.state.showAttempt

@@ -7,14 +7,20 @@ const calculateX = difficulty => {
   switch (difficulty) {
     case 1:
       return '15';
-    case 2 || 7:
+    case 2:
       return '14';
     case 4:
       return '12';
-    case 5 || 9:
+    case 5:
       return '13.5';
-    case 6 || 8:
+    case 6:
       return '13';
+    case 7:
+      return '14';
+    case 8:
+      return '13';
+    case 9:
+      return '13.5';
     default:
       return '10';
   }
