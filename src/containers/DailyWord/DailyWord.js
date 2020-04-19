@@ -46,7 +46,7 @@ class DailyWord extends Component {
   addWord = async () => {
     this.props.addUserWord(this.props.currentWord);
     this.setState({ open: true });
-    wait(2000);
+    await wait(1000);
     this.refreshWord();
   };
 
