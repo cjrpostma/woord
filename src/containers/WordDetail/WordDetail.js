@@ -64,6 +64,7 @@ class WordDetail extends Component {
   state = {
     open: false,
     showDefinition: false,
+    sliderValue: 5,
     userDefinitionAttempt: '',
   };
 
@@ -75,6 +76,8 @@ class WordDetail extends Component {
     this.props.history.replace('/woords');
     this.props.deleteUserWord(this.props.id);
   };
+
+  handleSliderChange = (event, sliderValue) => this.setState({ sliderValue });
 
   toggleShowDefinition = () =>
     this.setState(prevState => ({ showDefinition: !prevState.showDefinition }));
@@ -149,7 +152,9 @@ class WordDetail extends Component {
               marks
               max={10}
               min={1}
+              onChange={this.handleSliderChange}
               step={1}
+              value={this.state.sliderValue}
               valueLabelDisplay="auto"
             />
           </form>
