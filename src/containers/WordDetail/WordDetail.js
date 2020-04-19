@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -51,6 +52,10 @@ class WordDetail extends Component {
     userDefinitionAttempt: '',
   };
 
+  handleBackClick = () => {
+    this.props.history.goBack();
+  };
+
   render() {
     const {
       addedOn,
@@ -80,7 +85,7 @@ class WordDetail extends Component {
     return (
       <PositionedSection>
         <PositionedLeft>
-          <StyledBackIcon />
+          <StyledBackIcon onClick={this.handleBackClick} />
         </PositionedLeft>
         <PositionedRight>
           <DifficultyRatingCircle difficulty={difficulty} secondary />
@@ -123,4 +128,4 @@ class WordDetail extends Component {
 
 const mapDispatchToProps = dispatch => ({});
 
-export default connect(null, mapDispatchToProps)(WordDetail);
+export default withRouter(connect(null, mapDispatchToProps)(WordDetail));
