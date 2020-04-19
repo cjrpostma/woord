@@ -19,6 +19,14 @@ const StyledTextInput = styled.input`
     font-family: ${({ theme }) => theme.fontFamily.primary};
     font-size: ${({ theme }) => theme.fontSizes.md};
     transform: translateY(4px);
+
+    @media ${({ theme }) => theme.mediaQueries.below720} {
+      font-size: ${({ theme }) => theme.fontSizes.sm};
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.below720} {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 

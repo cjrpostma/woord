@@ -18,6 +18,14 @@ const StyledTextInput = styled.textarea`
     color: ${({ theme }) => theme.colors.grayLighter};
     font-family: ${({ theme }) => theme.fontFamily.primary};
     font-size: ${({ theme }) => theme.fontSizes.md};
+
+    @media ${({ theme }) => theme.mediaQueries.below720} {
+      font-size: ${({ theme }) => theme.fontSizes.sm};
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.below720} {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
