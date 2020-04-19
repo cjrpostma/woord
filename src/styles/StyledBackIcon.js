@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const StyledBackIcon = styled(ArrowBackIcon)`

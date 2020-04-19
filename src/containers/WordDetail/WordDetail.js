@@ -13,6 +13,7 @@ import { capitalize } from '../../utils';
 // components ------------------------------
 import Button from '../../components/Button/Button';
 import ContentWrapper from '../../styles/ContentWrapper';
+import DifficultyRatingCircle from '../../components/DifficultyRatingCircle/DifficultyRatingCircle';
 import Header from '../../components/Header/Header';
 import StyledActionText from '../../styles/StyledActionText';
 import StyledBackIcon from '../../styles/StyledBackIcon';
@@ -31,12 +32,17 @@ const ItalicizedSpan = styled.span`
   font-style: italic;
 `;
 
-const PositionedSection = styled.section`
-  position: relative;
+const PositionedLeft = styled.div`
+  position: absolute;
 `;
 
-const PositionedBackIcon = styled(StyledBackIcon)`
+const PositionedRight = styled.div`
   position: absolute;
+  right: 0;
+`;
+
+const PositionedSection = styled.section`
+  position: relative;
 `;
 
 class WordDetail extends Component {
@@ -73,7 +79,12 @@ class WordDetail extends Component {
 
     return (
       <PositionedSection>
-        <PositionedBackIcon />
+        <PositionedLeft>
+          <StyledBackIcon />
+        </PositionedLeft>
+        <PositionedRight>
+          <DifficultyRatingCircle difficulty={difficulty} secondary />
+        </PositionedRight>
         <Header>
           <StyledHeaderTitle>{capitalize(word)}</StyledHeaderTitle>
           <StyledHeaderSubtitle>Added on {addedOnDate}</StyledHeaderSubtitle>
@@ -88,6 +99,9 @@ class WordDetail extends Component {
           and recite it from memory. Then record your attempt at the definition
           below.
         </CenteredBodyTypography>
+        <ContentWrapper>
+          <p>The content goes in here</p>
+        </ContentWrapper>
         <Button
           disabled={
             !this.props.currentWord || this.props.isLoading || this.props.error
