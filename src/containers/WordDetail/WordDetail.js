@@ -25,6 +25,7 @@ import StyledDefinition from '../../styles/StyledDefinition';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
 import StyledLoaderIcon from '../../styles/StyledLoaderIcon';
 import StyledHeaderSubtitle from '../../styles/StyledHeaderSubtitle';
+import StyledTextArea from '../../styles/StyledTextArea';
 import StyledWord from '../../styles/StyledWord';
 
 const CenteredBodyTypography = styled(StyledBodyTypography)`
@@ -112,11 +113,24 @@ class WordDetail extends Component {
         </Header>
         <CenteredBodyTypography>
           Think about the definition of <ItalicizedSpan>{word}</ItalicizedSpan>{' '}
-          and recite it from memory. Then record your attempt at the definition
-          below.
+          and recite it from memory. Then record your definition attempt below.
         </CenteredBodyTypography>
         <ContentWrapper>
-          <p>The content goes in here</p>
+          <form onSubmit={this.handleSubmit}>
+            <StyledTextArea
+              aria-label={`Enter your definition for the word ${word}`}
+              id="query"
+              onChange={e =>
+                this.setState({ userDefinitionAttempt: e.target.value })
+              }
+              name="query"
+              placeholder="Record your definition attempt..."
+              type="textarea"
+              value={this.state.userDefinitionAttempt}
+            />
+          </form>
+        </ContentWrapper>
+        <ContentWrapper>
           {this.state.showDefinition && (
             <>
               <StyledWord>{word}</StyledWord>

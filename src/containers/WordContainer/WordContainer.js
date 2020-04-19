@@ -42,9 +42,7 @@ const WordContainer = ({ userWords }) => (
         <>
           <CenteredBodyTypography>
             You currently have no Woords.
-          </CenteredBodyTypography>
-          <CenteredBodyTypography>
-            Add a few to get started!
+            <br /> Add a few to get started!
           </CenteredBodyTypography>
         </>
       )}
