@@ -4,14 +4,16 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-// icons ------------------------------
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+// mui ------------------------------
+import Slider from '@material-ui/core/Slider';
 
 // utils ------------------------------
 import { capitalize } from '../../utils';
-import { deleteUserWord } from '../../actions';
+import {
+  addUserWordAttempt,
+  deleteUserWord,
+  setUserWordDifficulty,
+} from '../../actions';
 
 // components ------------------------------
 import Button from '../../components/Button/Button';
@@ -21,14 +23,16 @@ import Header from '../../components/Header/Header';
 import StyledActionText from '../../styles/StyledActionText';
 import StyledBackIcon from '../../styles/StyledBackIcon';
 import StyledBodyTypography from '../../styles/StyledBodyTypography';
-import StyledDefinition from '../../styles/StyledDefinition';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
-import StyledLoaderIcon from '../../styles/StyledLoaderIcon';
 import StyledHeaderSubtitle from '../../styles/StyledHeaderSubtitle';
-import StyledWord from '../../styles/StyledWord';
+import StyledTextArea from '../../styles/StyledTextArea';
 
 const CenteredBodyTypography = styled(StyledBodyTypography)`
   text-align: center;
+`;
+
+const BoldSpan = styled.span`
+  font-weight: 700;
 `;
 
 const ItalicizedSpan = styled.span`
@@ -48,10 +52,20 @@ const PositionedSection = styled.section`
   position: relative;
 `;
 
+const StyledSlider = styled(Slider)`
+  && {
+    color: ${({ theme }) => theme.colors.magenta};
+    display: block;
+    margin: 0 auto;
+    max-width: 26rem;
+    min-width: 26rem;
+  }
+`;
+
 class WordDetail extends Component {
   state = {
-    open: false,
-    showDefinition: false,
+    showAttempt: false,
+    sliderValue: 1,
     userDefinitionAttempt: '',
   };
 
@@ -64,16 +78,26 @@ class WordDetail extends Component {
     this.props.deleteUserWord(this.props.id);
   };
 
-  toggleShowDefinition = () =>
-    this.setState(prevState => ({ showDefinition: !prevState.showDefinition }));
+  handleSliderChange = (event, sliderValue) => this.setState({ sliderValue });
+
+  toggleShowAttempt = async () => {
+    const { showAttempt, sliderValue, userDefinitionAttempt } = this.state;
+    const { addUserWordAttempt, id, setUserWordDifficulty } = this.props;
+
+    if (!showAttempt) {
+      await addUserWordAttempt(id, userDefinitionAttempt);
+      await setUserWordDifficulty(id, sliderValue);
+      this.setState({ sliderValue: 1, userDefinitionAttempt: '' });
+    }
+
+    this.setState(prevState => ({ showAttempt: !prevState.showAttempt }));
+  };
 
   render() {
     const {
       addedOn,
       definition,
       difficulty,
-      id,
-      partOfSpeech,
       userDefinitionAttempts,
       word,
     } = this.props;
@@ -85,7 +109,7 @@ class WordDetail extends Component {
 
     let reviewedOnDate;
 
-    if (previousReview && previousReview.length) {
+    if (previousReview) {
       reviewedOnDate = new Date(
         previousReview.attemptedOn
       ).toLocaleDateString();
@@ -110,26 +134,77 @@ class WordDetail extends Component {
             </StyledHeaderSubtitle>
           )}
         </Header>
-        <CenteredBodyTypography>
-          Think about the definition of <ItalicizedSpan>{word}</ItalicizedSpan>{' '}
-          and recite it from memory. Then record your attempt at the definition
-          below.
-        </CenteredBodyTypography>
-        <ContentWrapper>
-          <p>The content goes in here</p>
-          {this.state.showDefinition && (
-            <>
-              <StyledWord>{word}</StyledWord>
-              <StyledDefinition
+        {!this.state.showAttempt && (
+          <>
+            <CenteredBodyTypography>
+              <BoldSpan>Step 1.</BoldSpan>
+              <br />
+              Recite the definition of <ItalicizedSpan>
+                {word}
+              </ItalicizedSpan>{' '}
+              from memory.
+            </CenteredBodyTypography>
+            <ContentWrapper>
+              <form onSubmit={this.handleSubmit}>
+                <StyledTextArea
+                  aria-label={`Enter your definition for the word ${word}`}
+                  id="query"
+                  onChange={e =>
+                    this.setState({ userDefinitionAttempt: e.target.value })
+                  }
+                  name="query"
+                  placeholder="Record definition attempt..."
+                  type="textarea"
+                  value={this.state.userDefinitionAttempt}
+                />
+                <ContentWrapper>
+                  <CenteredBodyTypography>
+                    <BoldSpan>Step 2.</BoldSpan>
+                    <br />
+                    How difficult was it to recall the definition?
+                  </CenteredBodyTypography>
+                </ContentWrapper>
+                <StyledSlider
+                  defaultValue={1}
+                  marks
+                  max={10}
+                  min={1}
+                  onChange={this.handleSliderChange}
+                  step={1}
+                  value={this.state.sliderValue}
+                  valueLabelDisplay="auto"
+                />
+              </form>
+            </ContentWrapper>
+          </>
+        )}
+        {this.state.showAttempt && (
+          <ContentWrapper>
+            <CenteredBodyTypography>
+              <BoldSpan>Recorded entry</BoldSpan>
+              <br />
+              <ItalicizedSpan>
+                "{previousReview.attemptedDefinition}"
+              </ItalicizedSpan>
+            </CenteredBodyTypography>
+            <CenteredBodyTypography>
+              <BoldSpan>Dictionary entry</BoldSpan>
+              <br />
+              <ItalicizedSpan
                 dangerouslySetInnerHTML={{
                   __html: `"${definition}"`,
                 }}
               />
-            </>
-          )}
-        </ContentWrapper>
-        <Button onClick={this.toggleShowDefinition}>
-          {this.state.showDefinition ? 'Hide Definition' : 'Show Definition'}
+            </CenteredBodyTypography>
+          </ContentWrapper>
+        )}
+        <Button
+          disabled={
+            !this.state.userDefinitionAttempt && !this.state.showAttempt
+          }
+          onClick={this.toggleShowAttempt}
+        >
+          {this.state.showAttempt ? 'Return' : 'Submit Attempt'}
         </Button>
         <StyledActionText onClick={this.handleDeleteUserWord}>
           Delete Woord
@@ -141,11 +216,12 @@ class WordDetail extends Component {
 
 WordDetail.propTypes = {
   addedOn: PropTypes.number.isRequired,
+  addUserWordAttempt: PropTypes.func.isRequired,
   definition: PropTypes.string.isRequired,
   deleteUserWord: PropTypes.func.isRequired,
   difficulty: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
-  partOfSpeech: PropTypes.string.isRequired,
+  setUserWordDifficulty: PropTypes.func.isRequired,
   userDefinitionAttempts: PropTypes.arrayOf(
     PropTypes.shape({
       attemptedOn: PropTypes.number,
@@ -156,7 +232,11 @@ WordDetail.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
+  addUserWordAttempt: (wordId, attemptedDefinition) =>
+    dispatch(addUserWordAttempt(wordId, attemptedDefinition)),
   deleteUserWord: id => dispatch(deleteUserWord(id)),
+  setUserWordDifficulty: (wordId, difficulty) =>
+    dispatch(setUserWordDifficulty(wordId, difficulty)),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(WordDetail));
