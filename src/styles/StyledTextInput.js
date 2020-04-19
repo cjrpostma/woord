@@ -18,7 +18,6 @@ const StyledTextInput = styled.input`
     color: ${({ theme }) => theme.colors.grayLighter};
     font-family: ${({ theme }) => theme.fontFamily.primary};
     font-size: ${({ theme }) => theme.fontSizes.md};
-    transform: translateY(4px);
 
     @media ${({ theme }) => theme.mediaQueries.below720} {
       font-size: ${({ theme }) => theme.fontSizes.sm};

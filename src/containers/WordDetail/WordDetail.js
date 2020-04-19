@@ -4,10 +4,11 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-// icons ------------------------------
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
+// mui ------------------------------
 import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+import Slider from '@material-ui/core/Slider';
+import Snackbar from '@material-ui/core/Snackbar';
 
 // utils ------------------------------
 import { capitalize } from '../../utils';
@@ -47,6 +48,16 @@ const PositionedRight = styled.div`
 
 const PositionedSection = styled.section`
   position: relative;
+`;
+
+const StyledSlider = styled(Slider)`
+  && {
+    color: ${({ theme }) => theme.colors.magenta};
+    display: block;
+    margin: 0 auto;
+    max-width: 26rem;
+    min-width: 26rem;
+  }
 `;
 
 class WordDetail extends Component {
@@ -124,9 +135,22 @@ class WordDetail extends Component {
                 this.setState({ userDefinitionAttempt: e.target.value })
               }
               name="query"
-              placeholder="Record your definition attempt..."
+              placeholder="Record definition attempt..."
               type="textarea"
               value={this.state.userDefinitionAttempt}
+            />
+            <ContentWrapper>
+              <CenteredBodyTypography>
+                How difficult was it to recall the definition?
+              </CenteredBodyTypography>
+            </ContentWrapper>
+            <StyledSlider
+              defaultValue={5}
+              marks
+              max={10}
+              min={1}
+              step={1}
+              valueLabelDisplay="auto"
             />
           </form>
         </ContentWrapper>
