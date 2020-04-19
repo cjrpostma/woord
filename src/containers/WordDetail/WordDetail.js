@@ -49,12 +49,16 @@ const PositionedSection = styled.section`
 class WordDetail extends Component {
   state = {
     open: false,
+    showDefinition: false,
     userDefinitionAttempt: '',
   };
 
   handleBackClick = () => {
     this.props.history.goBack();
   };
+
+  toggleShowDefinition = () =>
+    this.setState(prevState => ({ showDefinition: !prevState.showDefinition }));
 
   render() {
     const {
@@ -106,14 +110,19 @@ class WordDetail extends Component {
         </CenteredBodyTypography>
         <ContentWrapper>
           <p>The content goes in here</p>
+          {this.state.showDefinition && (
+            <>
+              <StyledWord>{word}</StyledWord>
+              <StyledDefinition
+                dangerouslySetInnerHTML={{
+                  __html: `"${definition}"`,
+                }}
+              />
+            </>
+          )}
         </ContentWrapper>
-        <Button
-          disabled={
-            !this.props.currentWord || this.props.isLoading || this.props.error
-          }
-          onClick={this.addWord}
-        >
-          View definition
+        <Button onClick={this.toggleShowDefinition}>
+          {this.state.showDefinition ? 'Hide Definition' : 'Show Definition'}
         </Button>
         <StyledActionText
           disabled={this.props.isLoading}
