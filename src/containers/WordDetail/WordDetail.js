@@ -23,11 +23,9 @@ import Header from '../../components/Header/Header';
 import StyledActionText from '../../styles/StyledActionText';
 import StyledBackIcon from '../../styles/StyledBackIcon';
 import StyledBodyTypography from '../../styles/StyledBodyTypography';
-import StyledDefinition from '../../styles/StyledDefinition';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
 import StyledHeaderSubtitle from '../../styles/StyledHeaderSubtitle';
 import StyledTextArea from '../../styles/StyledTextArea';
-import StyledWord from '../../styles/StyledWord';
 
 const CenteredBodyTypography = styled(StyledBodyTypography)`
   text-align: center;
@@ -110,7 +108,6 @@ class WordDetail extends Component {
       userDefinitionAttempts[userDefinitionAttempts.length - 1];
 
     let reviewedOnDate;
-    console.log(previousReview);
 
     if (previousReview) {
       reviewedOnDate = new Date(
@@ -137,7 +134,6 @@ class WordDetail extends Component {
             </StyledHeaderSubtitle>
           )}
         </Header>
-
         {!this.state.showAttempt && (
           <>
             <CenteredBodyTypography>
@@ -182,21 +178,17 @@ class WordDetail extends Component {
             </ContentWrapper>
           </>
         )}
-
         {this.state.showAttempt && (
-          <>
+          <ContentWrapper>
             <CenteredBodyTypography>
-              <BoldSpan>Your progress has been recorded!</BoldSpan>
-            </CenteredBodyTypography>
-            <CenteredBodyTypography>
-              Your definition:
+              <BoldSpan>Recorded entry</BoldSpan>
               <br />
               <ItalicizedSpan>
                 "{previousReview.attemptedDefinition}"
               </ItalicizedSpan>
             </CenteredBodyTypography>
             <CenteredBodyTypography>
-              Dictionary definition:
+              <BoldSpan>Dictionary entry</BoldSpan>
               <br />
               <ItalicizedSpan
                 dangerouslySetInnerHTML={{
@@ -204,9 +196,8 @@ class WordDetail extends Component {
                 }}
               />
             </CenteredBodyTypography>
-          </>
+          </ContentWrapper>
         )}
-
         <Button
           disabled={
             !this.state.userDefinitionAttempt && !this.state.showAttempt
