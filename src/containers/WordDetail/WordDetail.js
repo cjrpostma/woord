@@ -5,14 +5,15 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // mui ------------------------------
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
 import Slider from '@material-ui/core/Slider';
-import Snackbar from '@material-ui/core/Snackbar';
 
 // utils ------------------------------
 import { capitalize } from '../../utils';
-import { deleteUserWord } from '../../actions';
+import {
+  addUserWordAttempt,
+  deleteUserWord,
+  setUserWordDifficulty,
+} from '../../actions';
 
 // components ------------------------------
 import Button from '../../components/Button/Button';
@@ -24,7 +25,6 @@ import StyledBackIcon from '../../styles/StyledBackIcon';
 import StyledBodyTypography from '../../styles/StyledBodyTypography';
 import StyledDefinition from '../../styles/StyledDefinition';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
-import StyledLoaderIcon from '../../styles/StyledLoaderIcon';
 import StyledHeaderSubtitle from '../../styles/StyledHeaderSubtitle';
 import StyledTextArea from '../../styles/StyledTextArea';
 import StyledWord from '../../styles/StyledWord';
@@ -62,9 +62,8 @@ const StyledSlider = styled(Slider)`
 
 class WordDetail extends Component {
   state = {
-    open: false,
-    showDefinition: false,
-    sliderValue: 5,
+    showAttempt: false,
+    sliderValue: 1,
     userDefinitionAttempt: '',
   };
 
@@ -79,16 +78,25 @@ class WordDetail extends Component {
 
   handleSliderChange = (event, sliderValue) => this.setState({ sliderValue });
 
-  toggleShowDefinition = () =>
-    this.setState(prevState => ({ showDefinition: !prevState.showDefinition }));
+  toggleShowAttempt = async () => {
+    const { showAttempt, sliderValue, userDefinitionAttempt } = this.state;
+    const { addUserWordAttempt, id, setUserWordDifficulty } = this.props;
+
+    if (!showAttempt) {
+      await addUserWordAttempt(id, userDefinitionAttempt);
+      await setUserWordDifficulty(id, sliderValue);
+      this.setState({ sliderValue: 1, userDefinitionAttempt: '' });
+    }
+
+    // always toggle the open status
+    this.setState(prevState => ({ showAttempt: !prevState.showAttempt }));
+  };
 
   render() {
     const {
       addedOn,
       definition,
       difficulty,
-      id,
-      partOfSpeech,
       userDefinitionAttempts,
       word,
     } = this.props;
@@ -126,8 +134,10 @@ class WordDetail extends Component {
           )}
         </Header>
         <CenteredBodyTypography>
-          Think about the definition of <ItalicizedSpan>{word}</ItalicizedSpan>{' '}
-          and recite it from memory. Then record your definition attempt below.
+          Step 1.
+          <br />
+          Recite the definition of <ItalicizedSpan>{word}</ItalicizedSpan> from
+          memory.
         </CenteredBodyTypography>
         <ContentWrapper>
           <form onSubmit={this.handleSubmit}>
@@ -144,11 +154,13 @@ class WordDetail extends Component {
             />
             <ContentWrapper>
               <CenteredBodyTypography>
+                Step 2.
+                <br />
                 How difficult was it to recall the definition?
               </CenteredBodyTypography>
             </ContentWrapper>
             <StyledSlider
-              defaultValue={5}
+              defaultValue={1}
               marks
               max={10}
               min={1}
@@ -171,8 +183,13 @@ class WordDetail extends Component {
             </>
           )}
         </ContentWrapper>
-        <Button onClick={this.toggleShowDefinition}>
-          {this.state.showDefinition ? 'Hide Definition' : 'Show Definition'}
+        <Button
+          disabled={
+            !this.state.userDefinitionAttempt && !this.state.showAttempt
+          }
+          onClick={this.toggleShowAttempt}
+        >
+          {this.state.showAttempt ? 'Return' : 'Submit Attempt'}
         </Button>
         <StyledActionText onClick={this.handleDeleteUserWord}>
           Delete Woord
@@ -184,11 +201,12 @@ class WordDetail extends Component {
 
 WordDetail.propTypes = {
   addedOn: PropTypes.number.isRequired,
+  addUserWordAttempt: PropTypes.func.isRequired,
   definition: PropTypes.string.isRequired,
   deleteUserWord: PropTypes.func.isRequired,
   difficulty: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
-  partOfSpeech: PropTypes.string.isRequired,
+  setUserWordDifficulty: PropTypes.func.isRequired,
   userDefinitionAttempts: PropTypes.arrayOf(
     PropTypes.shape({
       attemptedOn: PropTypes.number,
@@ -199,7 +217,11 @@ WordDetail.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
+  addUserWordAttempt: (wordId, attemptedDefinition) =>
+    dispatch(addUserWordAttempt(wordId, attemptedDefinition)),
   deleteUserWord: id => dispatch(deleteUserWord(id)),
+  setUserWordDifficulty: (wordId, difficulty) =>
+    dispatch(setUserWordDifficulty(wordId, difficulty)),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(WordDetail));
