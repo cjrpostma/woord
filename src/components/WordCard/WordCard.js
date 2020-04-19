@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // components ------------------------------
 import DifficultyRatingCircle from '../DifficultyRatingCircle/DifficultyRatingCircle';
 
-const StyledArticle = styled.article`
+const StyledLink = styled(Link)`
   align-items: center;
   background: ${({ theme }) => theme.colors.magenta};
   border-radius: ${({ theme }) => theme.styles.borderRadius};
@@ -21,21 +22,23 @@ const StyledArticle = styled.article`
   max-width: 24rem;
   padding: 1rem;
   text-align: center;
+  text-decoration: none;
   text-transform: uppercase;
   transition: opacity 150ms linear 100ms, transform 150ms ease-in-out 100ms;
   visibility: visible;
 `;
 
 const WordCard = ({ difficulty, id, word }) => (
-  <StyledArticle>
+  <StyledLink to={`woords/${word}/${id}`}>
     <p>{word}</p>
     <DifficultyRatingCircle difficulty={difficulty} />
-  </StyledArticle>
+  </StyledLink>
 );
 
 WordCard.propTypes = {
-  word: PropTypes.string.isRequired,
   difficulty: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  word: PropTypes.string.isRequired,
 };
 
 export default WordCard;

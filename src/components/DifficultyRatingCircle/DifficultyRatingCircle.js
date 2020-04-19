@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { progress } from '../../styles';
 
 const calculateX = difficulty => {
@@ -45,10 +45,27 @@ const StyledDifficultyRating = styled.svg`
     font-size: ${({ theme }) => theme.fontSizes.xs};
     font-weight: 400;
   }
+
+  ${({ secondary }) =>
+    secondary &&
+    css`
+      & path.circle {
+        stroke: ${({ theme }) => theme.colors.magenta};
+      }
+
+      & path.ring {
+        fill: ${({ theme }) => theme.colors.grayLightest};
+        stroke: ${({ theme }) => theme.colors.grayLighter};
+      }
+
+      & text {
+        fill: ${({ theme }) => theme.colors.magenta};
+      }
+    `}
 `;
 
-const DifficultyRatingCircle = ({ difficulty }) => (
-  <StyledDifficultyRating viewBox="0 0 36 36">
+const DifficultyRatingCircle = ({ difficulty, secondary }) => (
+  <StyledDifficultyRating secondary={secondary} viewBox="0 0 36 36">
     <path
       className="ring"
       d="M18 2.0845
@@ -70,6 +87,7 @@ const DifficultyRatingCircle = ({ difficulty }) => (
 
 DifficultyRatingCircle.propTypes = {
   difficulty: PropTypes.number.isRequired,
+  secondary: PropTypes.bool,
 };
 
 export default DifficultyRatingCircle;

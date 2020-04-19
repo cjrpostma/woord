@@ -1,3 +1,17 @@
+export const capitalize = string => {
+  if (typeof string !== 'string') return '';
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+export const cleanWordData = wordData => {
+  if (wordData.length > 1) {
+    return wordData.find(word => word.text);
+  }
+  if (Array.isArray(wordData)) {
+    return wordData[0];
+  }
+};
+
 export const getTodayFormatted = () => {
   const d = new Date();
 
@@ -33,12 +47,3 @@ export const getTodayFormatted = () => {
 
 export const wait = (amount = 0) =>
   new Promise(resolve => setTimeout(resolve, amount));
-
-export const cleanWordData = wordData => {
-  if (wordData.length > 1) {
-    return wordData.find(word => word.text);
-  }
-  if (Array.isArray(wordData)) {
-    return wordData[0];
-  }
-};
