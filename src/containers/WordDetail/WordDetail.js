@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -10,6 +11,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 // utils ------------------------------
 import { capitalize } from '../../utils';
+import { deleteUserWord } from '../../actions';
 
 // components ------------------------------
 import Button from '../../components/Button/Button';
@@ -135,6 +137,24 @@ class WordDetail extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({});
+WordDetail.propTypes = {
+  addedOn: PropTypes.number.isRequired,
+  definition: PropTypes.string.isRequired,
+  deleteUserWord: PropTypes.func.isRequired,
+  difficulty: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  partOfSpeech: PropTypes.string.isRequired,
+  userDefinitionAttempts: PropTypes.arrayOf(
+    PropTypes.shape({
+      attemptedOn: PropTypes.number,
+      attemptedDefinition: PropTypes.string,
+    })
+  ),
+  word: PropTypes.string.isRequired,
+};
+
+const mapDispatchToProps = dispatch => ({
+  deleteUserWord: id => dispatch(deleteUserWord(id)),
+});
 
 export default withRouter(connect(null, mapDispatchToProps)(WordDetail));
