@@ -15,6 +15,7 @@ import Button from '../../components/Button/Button';
 import ContentWrapper from '../../styles/ContentWrapper';
 import Header from '../../components/Header/Header';
 import StyledActionText from '../../styles/StyledActionText';
+import StyledBackIcon from '../../styles/StyledBackIcon';
 import StyledBodyTypography from '../../styles/StyledBodyTypography';
 import StyledDefinition from '../../styles/StyledDefinition';
 import StyledHeaderTitle from '../../styles/StyledHeaderTitle';
@@ -28,6 +29,14 @@ const CenteredBodyTypography = styled(StyledBodyTypography)`
 
 const ItalicizedSpan = styled.span`
   font-style: italic;
+`;
+
+const PositionedSection = styled.section`
+  position: relative;
+`;
+
+const PositionedBackIcon = styled(StyledBackIcon)`
+  position: absolute;
 `;
 
 class WordDetail extends Component {
@@ -63,7 +72,8 @@ class WordDetail extends Component {
     }
 
     return (
-      <section>
+      <PositionedSection>
+        <PositionedBackIcon />
         <Header>
           <StyledHeaderTitle>{capitalize(word)}</StyledHeaderTitle>
           <StyledHeaderSubtitle>Added on {addedOnDate}</StyledHeaderSubtitle>
@@ -92,7 +102,7 @@ class WordDetail extends Component {
         >
           Delete woord
         </StyledActionText>
-      </section>
+      </PositionedSection>
     );
   }
 }
