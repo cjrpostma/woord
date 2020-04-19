@@ -81,7 +81,9 @@ const App = props => (
   </AppWrapper>
 );
 
-App.propTypes = {};
+App.propTypes = {
+  findWord: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   findWord: id => findWord(id, state.userWords),

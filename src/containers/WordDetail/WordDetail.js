@@ -59,6 +59,11 @@ class WordDetail extends Component {
     this.props.history.goBack();
   };
 
+  handleDeleteUserWord = () => {
+    this.props.history.replace('/woords');
+    this.props.deleteUserWord(this.props.id);
+  };
+
   toggleShowDefinition = () =>
     this.setState(prevState => ({ showDefinition: !prevState.showDefinition }));
 
@@ -126,11 +131,8 @@ class WordDetail extends Component {
         <Button onClick={this.toggleShowDefinition}>
           {this.state.showDefinition ? 'Hide Definition' : 'Show Definition'}
         </Button>
-        <StyledActionText
-          disabled={this.props.isLoading}
-          onClick={() => this.props.deleteCurrentWord()}
-        >
-          Delete woord
+        <StyledActionText onClick={this.handleDeleteUserWord}>
+          Delete Woord
         </StyledActionText>
       </PositionedSection>
     );
