@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-// icons ------------------------------
+// mui ------------------------------
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -146,6 +147,12 @@ class AddWord extends Component {
     );
   }
 }
+
+AddWord.propTypes = {
+  currentWord: PropTypes.object,
+  error: PropTypes.object,
+  isLoading: PropTypes.bool,
+};
 
 const mapStateToProps = state => ({
   currentWord: state.currentWord,
