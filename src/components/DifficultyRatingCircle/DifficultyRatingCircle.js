@@ -72,6 +72,7 @@ const StyledDifficultyRating = styled.svg`
 
 const DifficultyRatingCircle = ({ difficulty, secondary }) => (
   <StyledDifficultyRating secondary={secondary} viewBox="0 0 36 36">
+    <title>Difficulty</title>
     <path
       className="ring"
       d="M18 2.0845
