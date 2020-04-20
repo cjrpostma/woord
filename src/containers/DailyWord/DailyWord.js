@@ -86,7 +86,7 @@ class DailyWord extends Component {
           )}
         </ContentWrapper>
         <Button
-          disabled={this.props.isLoading || this.props.error}
+          disabled={this.props.isLoading || !!this.props.error}
           onClick={this.addWord}
         >
           Add to Woords
@@ -144,10 +144,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addUserWord: word => dispatch(addUserWord(word)),
+  clearError: () => dispatch(setError(null)),
   deleteCurrentWord: () => dispatch(deleteCurrentWord()),
   requestCurrentWord: query => dispatch(requestCurrentWord(query)),
   requestRandomWord: () => dispatch(requestRandomWord()),
-  clearError: () => dispatch(setError(null)),
   setIsLoadingFalse: () => dispatch(setIsLoading(false)),
 });
 

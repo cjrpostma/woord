@@ -47,9 +47,9 @@ const App = props => (
     <NavigationBar />
     <StyledPrimaryTitle>Woord</StyledPrimaryTitle>
     <StyledSecondaryTitle>
-      Encounter a word you don’t know?
+      Encounter a word you don't know?
     </StyledSecondaryTitle>
-    <StyledSecondaryTitle shouldFadeIn>Let’s change that.</StyledSecondaryTitle>
+    <StyledSecondaryTitle shouldFadeIn>Let's change that.</StyledSecondaryTitle>
     <StyledMain>
       <Switch>
         <Route
