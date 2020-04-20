@@ -16,7 +16,7 @@ import theme from '../../styles/theme';
 import AddWord from './AddWord';
 
 const render = (ui, initialStore = {}, options = {}) => {
-  const store = createStore(rootReducer, applyMiddleware(thunk));
+  const store = createStore(rootReducer, initialStore, applyMiddleware(thunk));
   const Providers = ({ children }) => (
     <Provider store={store}>
       <MemoryRouter>

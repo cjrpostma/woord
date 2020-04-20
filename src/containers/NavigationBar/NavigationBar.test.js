@@ -11,7 +11,7 @@ import theme from '../../styles/theme';
 import NavigationBar from './NavigationBar';
 
 const render = (ui, initialStore = {}, options = {}) => {
-  const store = createStore(rootReducer, applyMiddleware(thunk));
+  const store = createStore(rootReducer, initialStore, applyMiddleware(thunk));
   const Providers = ({ children }) => (
     <Provider store={store}>
       <MemoryRouter>
@@ -26,9 +26,7 @@ const render = (ui, initialStore = {}, options = {}) => {
 afterEach(cleanup);
 
 test('it renders the correct content', async () => {
-  const { debug, getByText } = render(<NavigationBar />);
-
-  debug();
+  const { getByText } = render(<NavigationBar />);
 
   expect(getByText('Home')).toBeInTheDocument();
   expect(getByText('About')).toBeInTheDocument();

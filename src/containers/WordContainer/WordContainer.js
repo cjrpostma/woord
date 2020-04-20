@@ -41,8 +41,7 @@ const WordContainer = ({ userWords }) => (
       {!userWords.length && (
         <>
           <CenteredBodyTypography>
-            You currently have no Woords.
-            <br /> Add a few to get started!
+            You currently have no Woords. Add a few to get started!
           </CenteredBodyTypography>
         </>
       )}
