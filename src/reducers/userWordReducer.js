@@ -3,6 +3,14 @@ import * as actionTypes from '../actionTypes';
 export default (state = [], action) => {
   switch (action.type) {
     case actionTypes.ADD_USER_WORD:
+      const isDuplicateWord = state.some(
+        word => word.word === action.userWord.word
+      );
+
+      if (isDuplicateWord) {
+        return state;
+      }
+
       return [...state, action.userWord];
 
     case actionTypes.ADD_USER_WORD_ATTEMPT:

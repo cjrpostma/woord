@@ -9,7 +9,12 @@ import CloseIcon from '@material-ui/icons/Close';
 
 // utils ------------------------------
 import { getTodayFormatted, wait } from '../../utils';
-import { addUserWord, deleteCurrentWord } from '../../actions';
+import {
+  addUserWord,
+  deleteCurrentWord,
+  setError,
+  setIsLoading,
+} from '../../actions';
 import { requestCurrentWord } from '../../thunks/requestCurrentWord';
 import { requestRandomWord } from '../../thunks/requestRandomWord';
 
@@ -37,6 +42,8 @@ class DailyWord extends Component {
 
   componentWillUnmount() {
     this.props.deleteCurrentWord();
+    this.props.clearError();
+    this.props.setIsLoadingFalse();
   }
 
   handleClose = () => {
@@ -46,7 +53,7 @@ class DailyWord extends Component {
   addWord = async () => {
     this.props.addUserWord(this.props.currentWord);
     this.setState({ open: true });
-    wait(2000);
+    await wait(1000);
     this.refreshWord();
   };
 
@@ -140,6 +147,8 @@ const mapDispatchToProps = dispatch => ({
   deleteCurrentWord: () => dispatch(deleteCurrentWord()),
   requestCurrentWord: query => dispatch(requestCurrentWord(query)),
   requestRandomWord: () => dispatch(requestRandomWord()),
+  clearError: () => dispatch(setError(null)),
+  setIsLoadingFalse: () => dispatch(setIsLoading(false)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DailyWord);
