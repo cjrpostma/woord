@@ -4,13 +4,13 @@ import { ThemeProvider } from 'styled-components';
 import { render } from '@testing-library/react';
 import theme from '../../styles/theme';
 import '@testing-library/jest-dom/extend-expect';
-import PageNotFound from './PageNotFound';
+import WordCard from './WordCard';
 
-function renderPageNotFound(props) {
+function renderWordCard(props) {
   const utils = render(
     <MemoryRouter>
       <ThemeProvider theme={theme}>
-        <PageNotFound {...props} />
+        <WordCard {...props} />
       </ThemeProvider>
     </MemoryRouter>
   );
@@ -19,11 +19,13 @@ function renderPageNotFound(props) {
 }
 
 test('it renders the correct content', () => {
-  const { getByText } = renderPageNotFound();
+  const { getByText } = renderWordCard({
+    difficulty: 10,
+    id: 'abc',
+    word: 'Fake word',
+  });
 
-  expect(getByText('Page not found')).toBeInTheDocument();
-  expect(
-    getByText('If you entered a web address, please check it was correct.')
-  ).toBeInTheDocument();
-  expect(getByText('Return home')).toBeInTheDocument();
+  expect(getByText('Fake word')).toBeInTheDocument();
+  expect(getByText('Difficulty')).toBeInTheDocument();
+  expect(getByText('10')).toBeInTheDocument();
 });
