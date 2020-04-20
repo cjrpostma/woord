@@ -40,6 +40,18 @@ const SearchIcon = styled(StyledSearchIcon)`
   right: 1rem;
 `;
 
+const ScreenReaderText = styled.label`
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  position: absolute !important;
+  word-wrap: normal !important;
+  width: 1px;
+`;
+
 class AddWord extends Component {
   state = {
     open: false,
@@ -88,6 +100,9 @@ class AddWord extends Component {
         <ContentWrapper>
           <form onSubmit={this.handleSubmit}>
             <FormControl>
+              <ScreenReaderText htmlFor="query">
+                Search for a word
+              </ScreenReaderText>
               <StyledTextInput
                 aria-label="Search for a word"
                 id="query"
@@ -97,9 +112,13 @@ class AddWord extends Component {
                 type="text"
                 value={this.state.query}
               />
+              <ScreenReaderText htmlFor="search-submit">
+                Submit search
+              </ScreenReaderText>
               <SearchIcon
-                aria-label="Submit search for a word"
+                aria-label="Submit word search"
                 disabled={!this.state.query}
+                id="search-submit"
                 onClick={this.handleSubmit}
               />
             </FormControl>
