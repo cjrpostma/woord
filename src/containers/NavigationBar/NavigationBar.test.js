@@ -33,3 +33,14 @@ test('it renders the correct content', async () => {
   expect(getByText('Add')).toBeInTheDocument();
   expect(getByText('Woords(0)')).toBeInTheDocument();
 });
+
+test('it renders length of userWords prop', async () => {
+  const { getByText } = render(<NavigationBar />, {
+    userWords: ['one', 'two'],
+  });
+
+  expect(getByText('Home')).toBeInTheDocument();
+  expect(getByText('About')).toBeInTheDocument();
+  expect(getByText('Add')).toBeInTheDocument();
+  expect(getByText('Woords(2)')).toBeInTheDocument();
+});
