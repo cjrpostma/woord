@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
 // icons ------------------------------
 import Snackbar from '@material-ui/core/Snackbar';
@@ -30,6 +31,17 @@ import StyledLoaderIcon from '../../styles/StyledLoaderIcon';
 import StyledRefreshIcon from '../../styles/StyledRefreshIcon';
 import StyledWord from '../../styles/StyledWord';
 
+const ScreenReaderText = styled.label`
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  position: absolute !important;
+  word-wrap: normal !important;
+  width: 1px;
+`;
 class DailyWord extends Component {
   state = {
     open: false,
@@ -86,14 +98,18 @@ class DailyWord extends Component {
           )}
         </ContentWrapper>
         <Button
-          disabled={this.props.isLoading || this.props.error}
+          disabled={this.props.isLoading || !!this.props.error}
           onClick={this.addWord}
         >
           Add to Woords
         </Button>
+        <ScreenReaderText htmlFor="refresh-button">
+          Refresh word
+        </ScreenReaderText>
         <StyledRefreshIcon
           aria-label="refresh daily word"
           disabled={this.props.isLoading}
+          id="refresh-button"
           onClick={this.refreshWord}
         />
 
@@ -144,10 +160,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addUserWord: word => dispatch(addUserWord(word)),
+  clearError: () => dispatch(setError(null)),
   deleteCurrentWord: () => dispatch(deleteCurrentWord()),
   requestCurrentWord: query => dispatch(requestCurrentWord(query)),
   requestRandomWord: () => dispatch(requestRandomWord()),
-  clearError: () => dispatch(setError(null)),
   setIsLoadingFalse: () => dispatch(setIsLoading(false)),
 });
 

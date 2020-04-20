@@ -52,6 +52,18 @@ const PositionedSection = styled.section`
   position: relative;
 `;
 
+const ScreenReaderText = styled.label`
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  position: absolute !important;
+  word-wrap: normal !important;
+  width: 1px;
+`;
+
 const StyledSlider = styled(Slider)`
   && {
     color: ${({ theme }) => theme.colors.magenta};
@@ -120,7 +132,10 @@ class WordDetail extends Component {
     return (
       <PositionedSection>
         <PositionedLeft>
-          <StyledBackIcon onClick={this.handleBackClick} />
+          <ScreenReaderText htmlFor="back-button">
+            Click to navigate back
+          </ScreenReaderText>
+          <StyledBackIcon id="back-button" onClick={this.handleBackClick} />
         </PositionedLeft>
         <PositionedRight>
           <DifficultyRatingCircle difficulty={difficulty} secondary />
@@ -136,7 +151,7 @@ class WordDetail extends Component {
         </Header>
         {!this.state.showAttempt && (
           <>
-            <CenteredBodyTypography>
+            <CenteredBodyTypography data-testid="word-detail-step-1">
               <BoldSpan>Step 1.</BoldSpan>
               <br />
               Recite the definition of <ItalicizedSpan>
@@ -158,14 +173,18 @@ class WordDetail extends Component {
                   value={this.state.userDefinitionAttempt}
                 />
                 <ContentWrapper>
-                  <CenteredBodyTypography>
+                  <CenteredBodyTypography data-testid="word-detail-step-2">
                     <BoldSpan>Step 2.</BoldSpan>
                     <br />
                     How difficult was it to recall the definition?
                   </CenteredBodyTypography>
                 </ContentWrapper>
+                <ScreenReaderText htmlFor="difficulty-slider">
+                  Select a difficulty level between 1 and 10
+                </ScreenReaderText>
                 <StyledSlider
                   defaultValue={1}
+                  id="difficulty-slider"
                   marks
                   max={10}
                   min={1}
@@ -180,14 +199,14 @@ class WordDetail extends Component {
         )}
         {this.state.showAttempt && (
           <ContentWrapper>
-            <CenteredBodyTypography>
+            <CenteredBodyTypography data-testid="recorded-entry">
               <BoldSpan>Recorded entry</BoldSpan>
               <br />
               <ItalicizedSpan>
                 "{previousReview.attemptedDefinition}"
               </ItalicizedSpan>
             </CenteredBodyTypography>
-            <CenteredBodyTypography>
+            <CenteredBodyTypography data-testid="dictionary-entry">
               <BoldSpan>Dictionary entry</BoldSpan>
               <br />
               <ItalicizedSpan
