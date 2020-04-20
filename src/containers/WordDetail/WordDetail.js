@@ -199,14 +199,14 @@ class WordDetail extends Component {
         )}
         {this.state.showAttempt && (
           <ContentWrapper>
-            <CenteredBodyTypography>
+            <CenteredBodyTypography data-testid="recorded-entry">
               <BoldSpan>Recorded entry</BoldSpan>
               <br />
               <ItalicizedSpan>
                 "{previousReview.attemptedDefinition}"
               </ItalicizedSpan>
             </CenteredBodyTypography>
-            <CenteredBodyTypography>
+            <CenteredBodyTypography data-testid="dictionary-entry">
               <BoldSpan>Dictionary entry</BoldSpan>
               <br />
               <ItalicizedSpan

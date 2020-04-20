@@ -3,7 +3,8 @@ import { MemoryRouter } from 'react-router-dom';
 import {
   cleanup,
   render as rtlRender,
-  getByDisplayValue,
+  fireEvent,
+  wait,
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { Provider } from 'react-redux';
@@ -29,12 +30,11 @@ const render = (ui, initialStore = {}, options = {}) => {
 
 afterEach(cleanup);
 
-test('it renders the correct content', async () => {
+test('it renders the correct content', () => {
   const fakeWord = 'fake';
   const fakeDifficulty = 10;
 
   const {
-    debug,
     getByLabelText,
     getByPlaceholderText,
     getByTestId,
@@ -87,17 +87,11 @@ test('it renders the correct content', async () => {
   expect(getByText('Delete Woord')).toBeInTheDocument();
 });
 
-test('it renders the correct content', async () => {
+test('it can submit a definition attempt', async () => {
   const fakeWord = 'fake';
   const fakeDifficulty = 10;
 
-  const {
-    debug,
-    getByLabelText,
-    getByPlaceholderText,
-    getByTestId,
-    getByText,
-  } = render(
+  const { getByPlaceholderText, getByTestId, getByText } = render(
     <WordDetail
       id="abc"
       word={fakeWord}
@@ -109,38 +103,26 @@ test('it renders the correct content', async () => {
     />
   );
 
-  // DifficultyCircle component
-  expect(getByText('Difficulty')).toBeInTheDocument();
-  expect(getByText(fakeDifficulty.toString())).toBeInTheDocument();
+  // 'Submit Attempt' button is disabled until input received
+  expect(getByText('Submit Attempt')).toBeDisabled();
 
-  // title of the word
-  expect(getByText(fakeWord)).toBeInTheDocument();
+  // enter text into textarea
+  fireEvent.change(getByPlaceholderText('Record definition attempt...'), {
+    target: { value: 'my definition attempt' },
+  });
 
-  // added on date
-  expect(getByText('Added on 7/2/2018')).toBeInTheDocument();
+  expect(getByPlaceholderText('Record definition attempt...').value).toEqual(
+    'my definition attempt'
+  );
 
-  // back button
-  expect(getByLabelText('Click to navigate back')).toBeInTheDocument();
+  // 'Submit Attempt' button is enabled, click it
+  expect(getByText('Submit Attempt')).not.toBeDisabled();
+  // fireEvent.click(getByText('Submit Attempt'));
 
-  // step 1 text
-  expect(getByTestId('word-detail-step-1')).toBeInTheDocument();
-
-  // textarea
-  expect(
-    getByPlaceholderText('Record definition attempt...')
-  ).toBeInTheDocument();
-
-  // step 2 text
-  expect(getByTestId('word-detail-step-2')).toBeInTheDocument();
-
-  // slider
-  expect(
-    getByLabelText('Select a difficulty level between 1 and 10')
-  ).toBeInTheDocument();
-
-  // submit button
-  expect(getByText('Submit Attempt')).toBeInTheDocument();
-
-  // delete button
-  expect(getByText('Delete Woord')).toBeInTheDocument();
+  // await wait(() => {
+  //   expect(getByTestId('recorded-entry')).toBeInTheDocument();
+  //   expect(getByTestId('dictionary-entry')).toBeInTheDocument();
+  // });
 });
+
+test('it can delete the current word', () => {});
