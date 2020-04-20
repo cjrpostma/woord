@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
 // icons ------------------------------
 import Snackbar from '@material-ui/core/Snackbar';
@@ -30,6 +31,17 @@ import StyledLoaderIcon from '../../styles/StyledLoaderIcon';
 import StyledRefreshIcon from '../../styles/StyledRefreshIcon';
 import StyledWord from '../../styles/StyledWord';
 
+const ScreenReaderText = styled.label`
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  position: absolute !important;
+  word-wrap: normal !important;
+  width: 1px;
+`;
 class DailyWord extends Component {
   state = {
     open: false,
@@ -91,9 +103,13 @@ class DailyWord extends Component {
         >
           Add to Woords
         </Button>
+        <ScreenReaderText htmlFor="refresh-button">
+          Refresh word
+        </ScreenReaderText>
         <StyledRefreshIcon
           aria-label="refresh daily word"
           disabled={this.props.isLoading}
+          id="refresh-button"
           onClick={this.refreshWord}
         />
 

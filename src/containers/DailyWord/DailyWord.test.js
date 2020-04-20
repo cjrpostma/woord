@@ -13,7 +13,7 @@ import thunk from 'redux-thunk';
 import { ThemeProvider } from 'styled-components';
 import rootReducer from '../../reducers';
 import theme from '../../styles/theme';
-import App from './App';
+import DailyWord from './DailyWord';
 
 const render = (ui, initialStore = {}, options = {}) => {
   const store = createStore(rootReducer, initialStore, applyMiddleware(thunk));
@@ -56,21 +56,16 @@ test('it renders the correct content', async () => {
       })
     );
 
-  const { getAllByText, getByRole, getByText } = render(<App />);
-
-  // NavigationBar
-  expect(getAllByText('Home')[0]).toBeInTheDocument();
-  expect(getAllByText('About')[0]).toBeInTheDocument();
-  expect(getAllByText('Add')[0]).toBeInTheDocument();
-  expect(getAllByText('Woords(0)')[0]).toBeInTheDocument();
-
-  // titles
-  expect(getByText('Woord')).toBeInTheDocument();
-  expect(getByText(`Encounter a word you don't know?`)).toBeInTheDocument();
-  expect(getByText("Let's change that.")).toBeInTheDocument();
+  const { getByLabelText, getByRole, getByText } = render(<DailyWord />);
 
   // DailyWord
   expect(getByText('Daily Woord')).toBeInTheDocument();
+
+  // 'Add to Woords' button
+  expect(getByText('Add to Woords')).toBeInTheDocument();
+
+  // Refresh icon
+  expect(getByLabelText('Refresh word')).toBeInTheDocument();
 
   // Expect loading spinner to be present
   expect(getByRole('progressbar')).toBeInTheDocument();
