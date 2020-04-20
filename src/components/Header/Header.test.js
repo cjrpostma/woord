@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import theme from '../../styles/theme';
 import '@testing-library/jest-dom/extend-expect';
 import Header from './Header';
