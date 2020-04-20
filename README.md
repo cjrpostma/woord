@@ -18,6 +18,8 @@ Woord is a site that can be used as a reading companion. The purpose is to log w
 
 Once a word is logged, the user can view a formal definition and attempt to recite their own definition from memory. Unknown words begin with a difficulty level of 10 and the goal is, through consistent practice, to reduce the difficulty of recalling the definition and to increase understanding.
 
+There are many additional features I wish to implement, including a back end to authenticate users and allow them to persist their own data, filtering and sorting of words and definition attempts, allowing the API to display multiple definitions per word, data visualization of difficulty levels over time, and much more.
+
 Learning goals:
 
 - [x] Reinforce writing composable React components
@@ -25,12 +27,9 @@ Learning goals:
 - [x] Utilize Material UI for a slider, snackbar, and icons
 - [x] Interact with an API utilizing the fetch API and Redux-Thunk middleware
 - [x] Synchronize the UI with the URL dynamically using React Router to provide a multi-page user experience, including use of the history API via withRouter
-- [x] Write comprehensive unit and integration tests via Jest and React Testing Library
+- [x] Write comprehensive unit and integration tests via Jest and React Testing Library, including testing Redux connected container components
 - [x] Write unit tests for Redux functions
-- [x] Write unit and integration tests components and Redux connected containers
 - [x] Wireframing / UI design via Figma
-
-There are many additional features I wish to implement, including a back end to authenticate users and allow them to persist their own data, filtering and sorting of words and definition attempts, allowing the API to display multiple definitions per word, and much more.
 
 ### 2. Technology
 
