@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - node
+notifications:
+  email: false
+deploy:
+  provider: heroku
+  api_key:
+    secure: rK8tfLPhR7qHk18t45RyYRVfZGflOWNLxEywQg4xRbfNV7ebxtVX2dGmmuE11W4Wru+iGxzyhG1qBH/eCgQGipgT+xqsF34Y77nQau30emb2Sa0oDVlnou1+iHMaL7AEQ3SKTP4Oqg6IxHa0pAIjN9XGh2v7XRkdT82LlSpBlfY4LA/jBlmxvLhoVv+1G7kNd+21hh/JbzZ+ny0rPar6BQWI6dz1BmXLwLPqI0abPf6i1Mj9CVbf7ev8qlR72jsghLwVS34ayJgR2LbJ8skSsaYXpnaXZVM2RIhQ5kwTThAvAmBsoDJOG8HoTt+HZaWa5WIG7igNw4BuN7hwe8FhbB0HCQN52IT0gMb9ayY88Kwty1EtUDfPc5Nd9ok82kLoeLyppHKNPZzVqmi4SGKhdC67orIueOgri3q+HF3atAfnJWGaJb7ZFpsEgX8h5ZgELErouJJ2CDRNo7QZ3bIHVgm6MIHFH35HGX2RmHFZZcnA/LWLCJL6qq6/tr+kbGNBouBE/7q0WcuNTJk3o/9zKUsB3Vk7zeJ9XZUfW47BIv9GeqiLhC9Y8kcmNfS6lqwlTf4f1wHLRsvALgG4gFlLkdza5RaWNBx/e3ZPM9dK0omjwvKw9o0TFgOnJcAymW71zsu2rpyKSoMd/LI34X6EWx7a1kjsRmud1r6ztSkkams=
+    app: boiling-hollows-14732
+    skip_cleanup: true
