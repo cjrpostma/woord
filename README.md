@@ -1,4 +1,4 @@
-# Woord
+# Woord [![Build Status](https://travis-ci.org/cjrpostma/woord.svg?branch=master)](https://travis-ci.org/cjrpostma/woord)
 
 1. [Abstract](#1-abstract)
 2. [Technology](#2-technology)
