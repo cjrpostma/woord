@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - node
+notifications:
+  email: false
+deploy:
+  provider: heroku
+  api_key:
+    secure: xnmJtD6jcNUO2/xPLeQk65cwwtabjd5UiUqb/ZFHYqQhV173qxf1VCyXcJwPVSjJG0JXtCIqhM7HvuNWc3BCaoUiTqKTCpCy+HL6CIEoBqv+OMA+qtwlHY6gX+/ceKIiGl4YEPnNDdny49s9AIup80Te2F2k4lai9ne0No2Ng/L7RK/bS09QF250SKq7fkNnogApR/AAwJBLBxqERk5WNq1p4oK0ou4Ty1j+/gVJ5yGnHccdbamZxL1cYQa5hpEIqn2uKUObbxyTwi/zXxHZBPk16Cgkxi+2scXtAt25ePyDNhrxZNEyx3u/uexPhU3W8/znN05CrrXaiHWuzhM0d18jrj/P25rNPDXVrR4g9oP5lPL+X3Mx9axA+nEtvtS+ZcW+gUxwHLFR4dc6BJDrEjOnsRLymsaGqyPPc1aDoYPoN3w8dZ5xwcF03JFNiZCtrvpTKeqckhI/0RLAYigbjBsZyWytkTfGyOTqDWc5Aq+Xxomvbz7Uc8Hmz3gowqQrpCx5kfGdMNE4FwgbYel9wRHYrdEjafO3iZ82iO4Cf4M3HQWxvvoaEf8JLgkMUnhYHXTfOnLMq7N00tOmHQ0gRTJvzfKXbgUtf1KapQy7yOvRF2QOM/dbAdZOt0P+WDVhDXKTXLBYGmqZc5e5/etjLtVf1XRhsPJc6FpxDnIOf1I=
+  app: woord
+  skip_cleanup: true
