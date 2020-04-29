@@ -57,4 +57,4 @@ Front end:
 
 ### 5. Deployment
 
-- https://cjrpostma.github.io/woord/#/
+- https://woord.herokuapp.com/
