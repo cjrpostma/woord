@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -42,102 +42,103 @@ const ScreenReaderText = styled.label`
   word-wrap: normal !important;
   width: 1px;
 `;
-class DailyWord extends Component {
-  state = {
-    open: false,
-  };
+const DailyWord = (props) => {
+  const [open, setOpen] = useState(false);
 
-  async componentDidMount() {
-    await this.props.requestRandomWord();
-    this.props.requestCurrentWord(this.props.randomWord);
+  const onMount = async () => {
+    // TODO Write custom hooks for fetching
+    await props.requestRandomWord();
+    props.requestCurrentWord(props.randomWord);
   }
 
-  componentWillUnmount() {
-    this.props.deleteCurrentWord();
-    this.props.clearError();
-    this.props.setIsLoadingFalse();
-  }
+  useEffect(() => {
+    onMount();
+    return () => {
+      props.deleteCurrentWord();
+      props.clearError();
+      props.setIsLoadingFalse();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  handleClose = () => {
-    this.setState({ open: false });
+  const handleClose = () => {
+    setOpen(false);
   };
 
-  addWord = async () => {
-    this.props.addUserWord(this.props.currentWord);
-    this.setState({ open: true });
+  const refreshWord = async () => {
+    await props.requestRandomWord();
+    props.requestCurrentWord(props.randomWord);
+  };
+
+  const addWord = async () => {
+    props.addUserWord(props.currentWord);
+    setOpen(true);
     await wait(1000);
-    this.refreshWord();
+    refreshWord();
   };
 
-  refreshWord = async () => {
-    await this.props.requestRandomWord();
-    this.props.requestCurrentWord(this.props.randomWord);
-  };
+  return (
+    <section>
+      <Header>
+        <StyledHeaderTitle>Daily Woord</StyledHeaderTitle>
+        <StyledHeaderSubtitle>{getTodayFormatted()}</StyledHeaderSubtitle>
+      </Header>
+      <ContentWrapper>
+        {props.error && (
+          <StyledErrorMessage>{props.error.message}</StyledErrorMessage>
+        )}
+        {props.isLoading && <StyledLoaderIcon />}
+        {props.currentWord && !props.error && (
+          <>
+            <StyledWord>{props.currentWord.word}</StyledWord>
+            <StyledDefinition
+              dangerouslySetInnerHTML={{
+                __html: `"${props.currentWord.text}"`,
+              }}
+            />
+          </>
+        )}
+      </ContentWrapper>
+      <Button
+        disabled={props.isLoading || !!props.error}
+        onClick={addWord}
+      >
+        Add to Woords
+      </Button>
+      <ScreenReaderText htmlFor="refresh-button">
+        Refresh word
+      </ScreenReaderText>
+      <StyledRefreshIcon
+        aria-label="refresh daily word"
+        disabled={props.isLoading}
+        id="refresh-button"
+        onClick={refreshWord}
+      />
 
-  render() {
-    return (
-      <section>
-        <Header>
-          <StyledHeaderTitle>Daily Woord</StyledHeaderTitle>
-          <StyledHeaderSubtitle>{getTodayFormatted()}</StyledHeaderSubtitle>
-        </Header>
-        <ContentWrapper>
-          {this.props.error && (
-            <StyledErrorMessage>{this.props.error.message}</StyledErrorMessage>
-          )}
-          {this.props.isLoading && <StyledLoaderIcon />}
-          {this.props.currentWord && !this.props.error && (
-            <>
-              <StyledWord>{this.props.currentWord.word}</StyledWord>
-              <StyledDefinition
-                dangerouslySetInnerHTML={{
-                  __html: `"${this.props.currentWord.text}"`,
-                }}
-              />
-            </>
-          )}
-        </ContentWrapper>
-        <Button
-          disabled={this.props.isLoading || !!this.props.error}
-          onClick={this.addWord}
-        >
-          Add to Woords
-        </Button>
-        <ScreenReaderText htmlFor="refresh-button">
-          Refresh word
-        </ScreenReaderText>
-        <StyledRefreshIcon
-          aria-label="refresh daily word"
-          disabled={this.props.isLoading}
-          id="refresh-button"
-          onClick={this.refreshWord}
-        />
-
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={this.state.open}
-          autoHideDuration={3000}
-          onClose={this.handleClose}
-          message="Word added to collection."
-          action={
-            <>
-              <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={this.handleClose}
-              >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </>
-          }
-        />
-      </section>
-    );
-  }
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        message="Word added to collection."
+        action={
+          <>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </>
+        }
+      />
+    </section>
+  );
 }
 
 DailyWord.propTypes = {
