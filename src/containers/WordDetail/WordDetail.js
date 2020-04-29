@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -74,163 +74,157 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-class WordDetail extends Component {
-  state = {
-    showAttempt: false,
-    sliderValue: 1,
-    userDefinitionAttempt: '',
+const WordDetail = (props) => {
+  const [showAttempt, setShowAttempt] = useState(false);
+  const [sliderValue, setSliderValue] = useState(1);
+  const [userDefinitionAttempt, setUserDefinitionAttempt] = useState('');
+
+  const handleBackClick = () => {
+    props.history.goBack();
   };
 
-  handleBackClick = () => {
-    this.props.history.goBack();
+  const handleDeleteUserWord = () => {
+    props.history.replace('/woords');
+    props.deleteUserWord(props.id);
   };
 
-  handleDeleteUserWord = () => {
-    this.props.history.replace('/woords');
-    this.props.deleteUserWord(this.props.id);
-  };
+  const handleSliderChange = (event, sliderValue) => setSliderValue(sliderValue);
 
-  handleSliderChange = (event, sliderValue) => this.setState({ sliderValue });
-
-  toggleShowAttempt = async () => {
-    const { showAttempt, sliderValue, userDefinitionAttempt } = this.state;
-    const { addUserWordAttempt, id, setUserWordDifficulty } = this.props;
+  const toggleShowAttempt = async () => {
+    const { addUserWordAttempt, id, setUserWordDifficulty } = props;
 
     if (!showAttempt) {
       await addUserWordAttempt(id, userDefinitionAttempt);
       await setUserWordDifficulty(id, sliderValue);
-      this.setState({ sliderValue: 1, userDefinitionAttempt: '' });
+      setSliderValue(1);
+      setUserDefinitionAttempt('');
     }
 
-    this.setState(prevState => ({ showAttempt: !prevState.showAttempt }));
+    setShowAttempt(a => !a)
   };
 
-  render() {
-    const {
-      addedOn,
-      definition,
-      difficulty,
-      userDefinitionAttempts,
-      word,
-    } = this.props;
+  const {
+    addedOn,
+    definition,
+    difficulty,
+    userDefinitionAttempts,
+    word,
+  } = props;
 
-    const addedOnDate = new Date(addedOn).toLocaleDateString();
+  const addedOnDate = new Date(addedOn).toLocaleDateString();
 
-    const previousReview =
-      userDefinitionAttempts[userDefinitionAttempts.length - 1];
+  const previousReview =
+    userDefinitionAttempts[userDefinitionAttempts.length - 1];
 
-    let reviewedOnDate;
+  let reviewedOnDate;
 
-    if (previousReview) {
-      reviewedOnDate = new Date(
-        previousReview.attemptedOn
-      ).toLocaleDateString();
-    } else {
-      reviewedOnDate = '';
-    }
-
-    return (
-      <PositionedSection>
-        <PositionedLeft>
-          <ScreenReaderText htmlFor="back-button">
-            Click to navigate back
-          </ScreenReaderText>
-          <StyledBackIcon id="back-button" onClick={this.handleBackClick} />
-        </PositionedLeft>
-        <PositionedRight>
-          <DifficultyRatingCircle difficulty={difficulty} secondary />
-        </PositionedRight>
-        <Header>
-          <StyledHeaderTitle>{capitalize(word)}</StyledHeaderTitle>
-          <StyledHeaderSubtitle>Added on {addedOnDate}</StyledHeaderSubtitle>
-          {reviewedOnDate && (
-            <StyledHeaderSubtitle>
-              Reviewed on {reviewedOnDate}
-            </StyledHeaderSubtitle>
-          )}
-        </Header>
-        {!this.state.showAttempt && (
-          <>
-            <CenteredBodyTypography data-testid="word-detail-step-1">
-              <BoldSpan>Step 1.</BoldSpan>
-              <br />
-              Recite the definition of <ItalicizedSpan>
-                {word}
-              </ItalicizedSpan>{' '}
-              from memory.
-            </CenteredBodyTypography>
-            <ContentWrapper>
-              <form onSubmit={this.handleSubmit}>
-                <StyledTextArea
-                  aria-label={`Enter your definition for the word ${word}`}
-                  id="query"
-                  onChange={e =>
-                    this.setState({ userDefinitionAttempt: e.target.value })
-                  }
-                  name="query"
-                  placeholder="Record definition attempt..."
-                  type="textarea"
-                  value={this.state.userDefinitionAttempt}
-                />
-                <ContentWrapper>
-                  <CenteredBodyTypography data-testid="word-detail-step-2">
-                    <BoldSpan>Step 2.</BoldSpan>
-                    <br />
-                    How difficult was it to recall the definition?
-                  </CenteredBodyTypography>
-                </ContentWrapper>
-                <ScreenReaderText htmlFor="difficulty-slider">
-                  Select a difficulty level between 1 and 10
-                </ScreenReaderText>
-                <StyledSlider
-                  defaultValue={1}
-                  id="difficulty-slider"
-                  marks
-                  max={10}
-                  min={1}
-                  onChange={this.handleSliderChange}
-                  step={1}
-                  value={this.state.sliderValue}
-                  valueLabelDisplay="auto"
-                />
-              </form>
-            </ContentWrapper>
-          </>
-        )}
-        {this.state.showAttempt && (
-          <ContentWrapper>
-            <CenteredBodyTypography data-testid="recorded-entry">
-              <BoldSpan>Recorded entry</BoldSpan>
-              <br />
-              <ItalicizedSpan>
-                "{previousReview.attemptedDefinition}"
-              </ItalicizedSpan>
-            </CenteredBodyTypography>
-            <CenteredBodyTypography data-testid="dictionary-entry">
-              <BoldSpan>Dictionary entry</BoldSpan>
-              <br />
-              <ItalicizedSpan
-                dangerouslySetInnerHTML={{
-                  __html: `"${definition}"`,
-                }}
-              />
-            </CenteredBodyTypography>
-          </ContentWrapper>
-        )}
-        <Button
-          disabled={
-            !this.state.userDefinitionAttempt && !this.state.showAttempt
-          }
-          onClick={this.toggleShowAttempt}
-        >
-          {this.state.showAttempt ? 'Return' : 'Submit Attempt'}
-        </Button>
-        <StyledActionText onClick={this.handleDeleteUserWord}>
-          Delete Woord
-        </StyledActionText>
-      </PositionedSection>
-    );
+  if (previousReview) {
+    reviewedOnDate = new Date(
+      previousReview.attemptedOn
+    ).toLocaleDateString();
+  } else {
+    reviewedOnDate = '';
   }
+
+  return (
+    <PositionedSection>
+      <PositionedLeft>
+        <ScreenReaderText htmlFor="back-button">
+          Click to navigate back
+        </ScreenReaderText>
+        <StyledBackIcon id="back-button" onClick={handleBackClick} />
+      </PositionedLeft>
+      <PositionedRight>
+        <DifficultyRatingCircle difficulty={difficulty} secondary />
+      </PositionedRight>
+      <Header>
+        <StyledHeaderTitle>{capitalize(word)}</StyledHeaderTitle>
+        <StyledHeaderSubtitle>Added on {addedOnDate}</StyledHeaderSubtitle>
+        {reviewedOnDate && (
+          <StyledHeaderSubtitle>
+            Reviewed on {reviewedOnDate}
+          </StyledHeaderSubtitle>
+        )}
+      </Header>
+      {!showAttempt && (
+        <>
+          <CenteredBodyTypography data-testid="word-detail-step-1">
+            <BoldSpan>Step 1.</BoldSpan>
+            <br />
+            Recite the definition of <ItalicizedSpan>
+              {word}
+            </ItalicizedSpan>{' '}
+            from memory.
+          </CenteredBodyTypography>
+          <ContentWrapper>
+            <form>
+              <StyledTextArea
+                aria-label={`Enter your definition for the word ${word}`}
+                id="query"
+                onChange={e => setUserDefinitionAttempt(e.target.value)}
+                name="query"
+                placeholder="Record definition attempt..."
+                type="textarea"
+                value={userDefinitionAttempt}
+              />
+              <ContentWrapper>
+                <CenteredBodyTypography data-testid="word-detail-step-2">
+                  <BoldSpan>Step 2.</BoldSpan>
+                  <br />
+                  How difficult was it to recall the definition?
+                </CenteredBodyTypography>
+              </ContentWrapper>
+              <ScreenReaderText htmlFor="difficulty-slider">
+                Select a difficulty level between 1 and 10
+              </ScreenReaderText>
+              <StyledSlider
+                defaultValue={1}
+                id="difficulty-slider"
+                marks
+                max={10}
+                min={1}
+                onChange={handleSliderChange}
+                step={1}
+                value={sliderValue}
+                valueLabelDisplay="auto"
+              />
+            </form>
+          </ContentWrapper>
+        </>
+      )}
+      {showAttempt && (
+        <ContentWrapper>
+          <CenteredBodyTypography data-testid="recorded-entry">
+            <BoldSpan>Recorded entry</BoldSpan>
+            <br />
+            <ItalicizedSpan>
+              "{previousReview.attemptedDefinition}"
+            </ItalicizedSpan>
+          </CenteredBodyTypography>
+          <CenteredBodyTypography data-testid="dictionary-entry">
+            <BoldSpan>Dictionary entry</BoldSpan>
+            <br />
+            <ItalicizedSpan
+              dangerouslySetInnerHTML={{
+                __html: `"${definition}"`,
+              }}
+            />
+          </CenteredBodyTypography>
+        </ContentWrapper>
+      )}
+      <Button
+        disabled={
+          !userDefinitionAttempt && !showAttempt
+        }
+        onClick={toggleShowAttempt}
+      >
+        {showAttempt ? 'Return' : 'Submit Attempt'}
+      </Button>
+      <StyledActionText onClick={handleDeleteUserWord}>
+        Delete Woord
+      </StyledActionText>
+    </PositionedSection>
+  );
 }
 
 WordDetail.propTypes = {

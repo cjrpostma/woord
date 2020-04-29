@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -52,120 +52,117 @@ const ScreenReaderText = styled.label`
   width: 1px;
 `;
 
-class AddWord extends Component {
-  state = {
-    open: false,
-    query: '',
+const AddWord = (props) => {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
-  handleSubmit = async e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    if (!this.state.query) return;
-    await this.props.requestCurrentWord(this.state.query);
-    this.setState({ query: '' });
+    if (!query) return;
+    await props.requestCurrentWord(query);
+    setQuery('');
   };
 
-  addWord = () => {
-    this.props.addUserWord(this.props.currentWord);
-    this.props.deleteCurrentWord();
-    this.setState({ open: true });
+  const addWord = () => {
+    props.addUserWord(props.currentWord);
+    props.deleteCurrentWord();
+    setOpen(true);
   };
 
-  render() {
-    return (
-      <section>
-        <Header>
-          <StyledHeaderTitle>Add Woord</StyledHeaderTitle>
-        </Header>
-        <ContentWrapper>
-          {this.props.error && (
-            <StyledErrorMessage>{this.props.error.message}</StyledErrorMessage>
-          )}
-          {this.props.isLoading && <StyledLoaderIcon />}
-          {this.props.currentWord && !this.props.error && (
-            <>
-              <StyledWord>{this.props.currentWord.word}</StyledWord>
-              <StyledDefinition
-                dangerouslySetInnerHTML={{
-                  __html: `"${this.props.currentWord.text}"`,
-                }}
-              />
-            </>
-          )}
-        </ContentWrapper>
-        <ContentWrapper>
-          <form onSubmit={this.handleSubmit}>
-            <FormControl>
-              <ScreenReaderText htmlFor="query">
-                Search for a word
-              </ScreenReaderText>
-              <StyledTextInput
-                aria-label="Search for a word"
-                id="query"
-                onChange={e => this.setState({ query: e.target.value })}
-                name="query"
-                placeholder="Search for word..."
-                type="text"
-                value={this.state.query}
-              />
-              <ScreenReaderText htmlFor="search-submit">
-                Submit search
-              </ScreenReaderText>
-              <SearchIcon
-                aria-label="Submit word search"
-                disabled={!this.state.query}
-                id="search-submit"
-                onClick={this.handleSubmit}
-              />
-            </FormControl>
-          </form>
-        </ContentWrapper>
-        <Button
-          disabled={
-            !this.props.currentWord ||
-            this.props.isLoading ||
-            !!this.props.error
-          }
-          onClick={this.addWord}
-        >
-          Add to Woords
-        </Button>
-        <StyledActionText
-          disabled={!this.props.currentWord || this.props.isLoading}
-          onClick={() => this.props.deleteCurrentWord()}
-        >
-          Clear
-        </StyledActionText>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={this.state.open}
-          autoHideDuration={3000}
-          onClose={this.handleClose}
-          message="Word added to collection."
-          action={
-            <>
-              <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={this.handleClose}
-              >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </>
-          }
-        />
-      </section>
-    );
-  }
+  return (
+    <section>
+      <Header>
+        <StyledHeaderTitle>Add Woord</StyledHeaderTitle>
+      </Header>
+      <ContentWrapper>
+        {props.error && (
+          <StyledErrorMessage>{props.error.message}</StyledErrorMessage>
+        )}
+        {props.isLoading && <StyledLoaderIcon />}
+        {props.currentWord && !props.error && (
+          <>
+            <StyledWord>{props.currentWord.word}</StyledWord>
+            <StyledDefinition
+              dangerouslySetInnerHTML={{
+                __html: `"${props.currentWord.text}"`,
+              }}
+            />
+          </>
+        )}
+      </ContentWrapper>
+      <ContentWrapper>
+        <form onSubmit={handleSubmit}>
+          <FormControl>
+            <ScreenReaderText htmlFor="query">
+              Search for a word
+            </ScreenReaderText>
+            <StyledTextInput
+              aria-label="Search for a word"
+              id="query"
+              onChange={e => setQuery(e.target.value)}
+              name="query"
+              placeholder="Search for word..."
+              type="text"
+              value={query}
+            />
+            <ScreenReaderText htmlFor="search-submit">
+              Submit search
+            </ScreenReaderText>
+            <SearchIcon
+              aria-label="Submit word search"
+              disabled={!query}
+              id="search-submit"
+              onClick={handleSubmit}
+            />
+          </FormControl>
+        </form>
+      </ContentWrapper>
+      <Button
+        disabled={
+          !props.currentWord ||
+          props.isLoading ||
+          !!props.error
+        }
+        onClick={addWord}
+      >
+        Add to Woords
+      </Button>
+      <StyledActionText
+        disabled={!props.currentWord || props.isLoading}
+        onClick={() => props.deleteCurrentWord()}
+      >
+        Clear
+      </StyledActionText>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        message="Word added to collection."
+        action={
+          <>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </>
+        }
+      />
+    </section>
+  );
 }
+
 
 AddWord.propTypes = {
   currentWord: PropTypes.object,
